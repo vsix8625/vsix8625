@@ -28,5 +28,4 @@ My focus areas include C programming, development tools, systems programming, an
 - **Compiler:** GCC, clang
 - **Build Tools:** Make, Custom build tool, Build Scripts.
 - **Libraries:** SDL3, SDL3_ttf, Crypto, Custom libraries.
-- **Automated Tools:** Custom .bashrc, .bash_aliases, cron
 
