@@ -1,5 +1,6 @@
 
 alias sobrc="source ~/.bashrc"
+# Make sure to export your edit to .bashrc
 alias ebrc="$EDITOR ~/.bashrc"
 alias ebal="$EDITOR ~/.bash_aliases"
 
@@ -19,15 +20,13 @@ alias sudovi="sudo -E $EDITOR"
 alias ibx="IronbinX"
 alias g="git"
 
-#---------------------------------------------------------------------------------------------------- 
-
 alias cid="ls -1 | wc -l"
 alias cidf="find . -type f | wc -l"
 alias cls="clear && echo && ls"
 
 #---------------------------------------------------------------------------------------------------- 
 # Custom discontinued library
-
+# Will be removed
 alias acelude="cd /usr/local/include/ACE"
 alias acesrc="cd /usr/local/src/ACE"
 alias acelib="cd /usr/local/lib"
@@ -47,7 +46,7 @@ alias ss="sudo systemctl"
 alias ssfail="sudo systemctl | grep 'failed'"
 alias fzman="compgen -c | fzf | xargs man"
 
-# Custom bash scripts
+# Aliases for custom bash script executables
 alias ib="IronBin"
 alias smake="Sythium_Make"
 alias md="MusicDownload"
@@ -57,6 +56,7 @@ alias neof="gnome-terminal --window-with-profile=vsix --geometry=80x30+1800+800 
 alias f="blink"
 
 #---------------------------------------------------------------------------------------------------- 
+# Some "fun" shortcuts
 
 alias ..="cd .."
 alias ...="cd ../.."
@@ -74,7 +74,7 @@ alias aptlog="cat /var/log/apt/history.log | fzf"
 alias aptlogs="cat /var/log/apt/history.log | less -R"
 
 #---------------------------------------------------------------------------------------------------- 
-# GNOME
+# GNOME terminal 
 
 alias hobbit="gnome-terminal --window-with-profile=gnome --geometry=100x70+1870+10 -- "
 alias htop="gnome-terminal --window-with-profile=gnome --geometry=100x50+1870+10 -- bash -c 'htop; exec bash'"
