@@ -1,6 +1,6 @@
 
 alias sobrc="source ~/.bashrc"
-# Make sure to export your edit to .bashrc
+# Make sure to export your editor to .bashrc
 alias ebrc="$EDITOR ~/.bashrc"
 alias ebal="$EDITOR ~/.bash_aliases"
 
