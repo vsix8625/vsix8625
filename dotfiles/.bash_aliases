@@ -26,7 +26,7 @@ alias cidf="find . -type f | wc -l"
 alias cls="clear && echo && ls"
 
 #---------------------------------------------------------------------------------------------------- 
-# ACE
+# Custom discontinued library
 
 alias acelude="cd /usr/local/include/ACE"
 alias acesrc="cd /usr/local/src/ACE"
