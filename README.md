@@ -24,10 +24,10 @@ My focus areas include C programming, development tools, systems programming, an
 ## 🔧 Technologies & Tools
 - **Editor:** Neovim
 - **Terminal:** Kitty, Gnome
-- **OS:** Linux Mint, Debian, Windows 
+- **OS:** Linux Mint
 - **Version Control:** Git
 - **Compiler:** GCC, clang
-- **Build Tools:** Make, Custom build tool, Build Scripts.
+- **Build Tools:** Custom build tool, Build Scripts, Make.
 - **Libraries:** SDL3, SDL3_ttf, Crypto, Custom libraries.
 
 <details>
