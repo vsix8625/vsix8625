@@ -39,4 +39,8 @@ My focus areas include C programming, development tools, systems programming, an
 
 </details>
 
+## Fun Fact
+- **User Name:** I took this username from V6-Engines for their performance and robustness, used it more for online gaming.
+                 Little did i knew that Visual Studio use a VSIX package file.
+
 ## 
