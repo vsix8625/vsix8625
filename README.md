@@ -23,9 +23,18 @@ My focus areas include C programming, development tools, systems programming, an
 
 ## 🔧 Technologies & Tools
 - **Editor:** Neovim
+- **Terminal:** Kitty, Gnome
 - **OS:** Linux Mint, Debian, Windows 
 - **Version Control:** Git
 - **Compiler:** GCC, clang
 - **Build Tools:** Make, Custom build tool, Build Scripts.
 - **Libraries:** SDL3, SDL3_ttf, Crypto, Custom libraries.
 
+<details open>
+<summary>My Prompt</summary>
+
+![Image1](/home/vsix/Pictures/ps1.png "Prompt")
+
+![Image2](/home/vsix/Pictures/Prompt.png "Error Prompt")
+
+</details>
