@@ -6,6 +6,8 @@ alias ebrc="$EDITOR ~/.bashrc"
 # Edit bash_aliases
 alias ebal="$EDITOR ~/.bash_aliases"
 
+alias elbsh="$EDITOR ~/.local_bash"
+
 alias grt="cd /"
 alias gho="cd "
 

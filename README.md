@@ -9,7 +9,7 @@ My focus areas include C programming, development tools, systems programming, an
 ## 🌐 Focus Language
 - **Focus Language:** C
 
-<details open>
+<details>
 <summary>My top languages</summary>
 
 | Rank | Languages |
@@ -30,17 +30,15 @@ My focus areas include C programming, development tools, systems programming, an
 - **Build Tools:** Custom build tool, Build Scripts, Make.
 - **Libraries:** SDL3, SDL3_ttf, Crypto, Custom libraries.
 
-<details>
+<details open>
 <summary>My Prompt</summary>
 
 ![ Image](assets/pictures/Prompt1.png "Prompt")
 
-![ Image](assets/pictures/Prompt2.png "Error Prompt")
-
 </details>
 
 ## Fun Fact
-- **User Name:** I took this username from V6-Engines for their performance and robustness, used it more for online gaming.
+- **Username:** I took this username from V6-Engines for their performance and robustness, used it more for online gaming.
                  Little did i knew that Visual Studio use a VSIX package file.
 
 ## 

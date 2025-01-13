@@ -184,5 +184,5 @@ extr(){
 
 PROMPT_COMMAND='update_ps1'
 
-source "$HOME/.local_bash.sh"
+source "$HOME/.local_bash"
 
