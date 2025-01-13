@@ -30,7 +30,7 @@ My focus areas include C programming, development tools, systems programming, an
 - **Build Tools:** Make, Custom build tool, Build Scripts.
 - **Libraries:** SDL3, SDL3_ttf, Crypto, Custom libraries.
 
-<details open>
+<details>
 <summary>My Prompt</summary>
 
 ![ Image](assets/pictures/Prompt1.png "Prompt")
@@ -38,3 +38,5 @@ My focus areas include C programming, development tools, systems programming, an
 ![ Image](assets/pictures/Prompt2.png "Error Prompt")
 
 </details>
+
+## 

@@ -184,19 +184,5 @@ extr(){
 
 PROMPT_COMMAND='update_ps1'
 
-# Added bin dir to PATH for bash scripts executables.
-# Allows the use of the executable from anywhere.
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:usr/sbin:/sbin:/bin:$HOME/.scripts/bin"
-export MANPATH="$MANPATH:/usr/local/man"
+source "$HOME/.local_bash.sh"
 
-# Not an executable requires source to work
-source "$HOME/.scripts/tools/blink.sh"
-
-#---------------------------------------------------------------------------------------------------- 
-# A project's dir added to PATH for system use
-export PATH="$PATH:$HOME/.vsix/IronBinX/bin:$HOME/.vsix/IGSC2.0/IGSC/bin:$HOME/.vsix/bin"
-export PATH="$PATH:$HOME/.vsix/Timer/bin"
-#---------------------------------------------------------------------------------------------------- 
-
-# A custom C library added to CPATH for gcc to be able to find it.
-export CPATH="$CPATH:/home/vsix/Sythium/include"
