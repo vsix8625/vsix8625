@@ -33,8 +33,8 @@ My focus areas include C programming, development tools, systems programming, an
 <details open>
 <summary>My Prompt</summary>
 
-![Image1](/home/vsix/Pictures/ps1.png "Prompt")
+![ Image](assets/pictures/Prompt1.png "Prompt")
 
-![Image2](/home/vsix/Pictures/Prompt.png "Error Prompt")
+![ Image](assets/pictures/Prompt2.png "Error Prompt")
 
 </details>
