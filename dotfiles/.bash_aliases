@@ -15,6 +15,12 @@ alias v="nvim"
 alias gvim="cd $HOME/.config/nvim"
 alias gvim-colors="cd /usr/local/share/nvim/runtime/colors"
 
+# checks build for Makefile
+alias makeb="make -C build"
+alias make-clean="make -C build clean"
+alias mkm="MakeMagic"
+alias rapp="\$(< config/app.conf)"
+
 # opens editor with sudo 
 alias sudovi="sudo -E $EDITOR"
 
