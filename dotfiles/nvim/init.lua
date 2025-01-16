@@ -21,9 +21,6 @@ require("vsix.aucmds")
 ----------------------------------------------------------------------------------------------------
 
 local plugins_spec = {}
---if not vim.g.NEBULA_THEMES then
--- table.insert(plugins_spec, { import = "plugins.colorscheme" })
---end
 table.insert(plugins_spec, { import = "plugins.treesitter" })
 table.insert(plugins_spec, { import = "plugins.mason" })
 table.insert(plugins_spec, { import = "plugins.telescope" })

@@ -18,7 +18,11 @@ alias gvim-colors="cd /usr/local/share/nvim/runtime/colors"
 # checks build for Makefile
 alias makeb="make -C build"
 alias make-clean="make -C build clean"
+# Creates a simple Makefile in build dir.
 alias mkm="MakeMagic"
+# Makefile created by MakeMagic, it will also create the
+# config/app.conf file, its just the name of the bin created by make,
+# then we can use rapp alias to run the binary.
 alias rapp="\$(< config/app.conf)"
 
 # opens editor with sudo 
@@ -27,6 +31,7 @@ alias sudovi="sudo -E $EDITOR"
 # Git
 alias g="git"
 alias gconf="git config --list"
+alias gstat="git diff --stat"
 
 alias cid="ls -1 | wc -l"
 alias cidf="find . -type f | wc -l"
@@ -62,6 +67,7 @@ alias icat="kitten icat"
 
 alias tm="date"
 
+# History logs of package manager updates and removals
 alias aptlog="cat /var/log/apt/history.log | fzf"
 alias aptlogs="cat /var/log/apt/history.log | less -R"
 
