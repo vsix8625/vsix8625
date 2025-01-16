@@ -174,22 +174,6 @@ end
 
 ----------------------------------------------------------------------------------------------------
 
-local function get_git_branch()
-  local git_branch = vim.fn.systemlist("git rev-parse --is-inside-work-tree 2>/dev/null")
-  if vim.v.shell_error ~= 0 or #git_branch == 0 then
-    return "\u{274c}" -- Not a Git repository
-  end
-
-  -- Fetch the current branch name
-  local branch = vim.fn.systemlist("git branch --show-current 2>/dev/null")[1]
-  if not branch or branch == "" then
-    branch = "(detached)"
-  end
-  return branch
-end
-
-----------------------------------------------------------------------------------------------------
-
 function MyStatusline()
   local statusline
   local mode = vim.fn.mode()
@@ -220,14 +204,11 @@ function MyStatusline()
   else
     save_status = "%#saveStatus#" .. icons["saved"]
   end
-	
-  local git_branch = get_git_branch()
 
   -- normal mode statusline
   if mode == "n" then
     local lsp = get_lsp_diagnostics()
     statusline = save_status .. "%#modeNormal#" .. " Normal %m" ..
-		"[\u{1f310}: " .. git_branch .. "]" ..
 		"%#string# %y" ..
         buffer_info .. lsp
   end
