@@ -15,7 +15,7 @@ local theme_icon = {
   supernova      = " \u{1f4a5} ",
 }
 
-local icons = {
+local icons = {  
   dir         = " \u{1F5C2}",
   saved       = " \u{1f7e2} ",
   unsaved     = " \u{1f534} ",
@@ -177,7 +177,7 @@ end
 local function get_git_branch()
   local git_branch = vim.fn.systemlist("git rev-parse --is-inside-work-tree 2>/dev/null")
   if vim.v.shell_error ~= 0 or #git_branch == 0 then
-    return "-" -- Not a Git repository
+    return "\u{274c}" -- Not a Git repository
   end
 
   -- Fetch the current branch name
@@ -227,7 +227,7 @@ function MyStatusline()
   if mode == "n" then
     local lsp = get_lsp_diagnostics()
     statusline = save_status .. "%#modeNormal#" .. " Normal %m" ..
-		"[git: " .. git_branch .. "]" ..
+		"[\u{1f310}: " .. git_branch .. "]" ..
 		"%#string# %y" ..
         buffer_info .. lsp
   end
