@@ -2,7 +2,7 @@
 
 
 ## About Me
-I started coding in 2023 and quickly discovered my passion for it.
+I started coding in Dec 2023 and quickly discovered my passion for it.
 Although I'm not currently working as a developer, I enjoy building projects in my spare time.
 My focus areas include C programming, development tools, systems programming, and learning about game engine development.
 
@@ -27,8 +27,7 @@ My focus areas include C programming, development tools, systems programming, an
 - **OS:** Linux Mint
 - **Version Control:** Git
 - **Compiler:** GCC, clang
-- **Build Tools:** Custom build tool, Build Scripts, Make.
-- **Libraries:** SDL3, SDL3_ttf, Crypto, Custom libraries.
+- **Build Tools:** Make, CMake, Custom scripts.
 
 <details open>
 <summary>My Prompt</summary>

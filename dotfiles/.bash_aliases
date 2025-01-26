@@ -7,6 +7,7 @@ alias ebrc="$EDITOR ~/.bashrc"
 alias ebal="$EDITOR ~/.bash_aliases"
 
 alias elbsh="$EDITOR ~/.local_bash"
+alias egit="$EDITOR ~/.gitconfig"
 
 alias grt="cd /"
 alias gho="cd "
@@ -32,6 +33,7 @@ alias sudovi="sudo -E $EDITOR"
 alias g="git"
 alias gconf="git config --list"
 alias gstat="git diff --stat"
+alias gaddv="git status && git add -A && git status"
 
 alias cid="ls -1 | wc -l"
 alias cidf="find . -type f | wc -l"
