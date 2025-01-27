@@ -45,8 +45,9 @@ end
 
 local function update_nvim()
   vim.cmd("Lazy sync")
-  vim.cmd("MasonUpdate")
-  vim.cmd("TSUpdate")
+  vim.defer_fn(function()
+		vim.cmd("TSUpdate")
+  end, 80)
 end
 vim.api.nvim_create_user_command("UpdateNvim", update_nvim, {})
 

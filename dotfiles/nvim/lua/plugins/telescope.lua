@@ -9,9 +9,11 @@ local function find_files2()
     previewer = false,
     layout_strategy = "flex",
     layout_config = {
-      width = 0.30,
-      height = 0.80,
+      width = 0.40,
+      height = 0.90,
     },
+	hidden = true,
+	no_ignore = true,
   })
 end
 ----------------------------------------------------------------------------------------------------

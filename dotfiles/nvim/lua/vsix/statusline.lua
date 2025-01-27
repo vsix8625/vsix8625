@@ -173,6 +173,9 @@ function MyWinbar()
 end
 
 ----------------------------------------------------------------------------------------------------
+local function get_shiftwidth()
+  return vim.api.nvim_buf_get_option(0, 'shiftwidth')
+end
 
 function MyStatusline()
   local statusline
@@ -189,8 +192,8 @@ function MyStatusline()
     filetype = " "
   end
 
-  local buffer_info = "%=%#modeNormal#" ..
-      "  %#linenr#%c | %l" .. "/%L|%#modeNormal# %p%%| "
+  local buffer_info = "%=%#modeNormal# " ..
+       " %#linenr#TAB=" .. get_shiftwidth() .." | %c | %l" .. "/%L|%#modeNormal# %p%%| "
 
   ---@diagnostic disable-next-line: unused-local
   local save_status_colors = {
