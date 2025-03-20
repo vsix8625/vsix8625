@@ -125,10 +125,10 @@ fi
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
-export LS_COLORS="di=01;33:fi=32:ln=36:ex=1;31;40:*.jpg=35:*.png=35"
+export LS_COLORS="di=01;33:fi=36:ln=1;36:pi=1;33:ex=1;31;40:so=1;35:cd=1;33;41:*.jpg=35:*.png=35:*.c=1;34:*.h=1;32"
 
 # some more ls aliases
-alias ll='ls -alF'
+alias ll='ls -alFh --color=always'
 alias la='ls -A'
 alias l='ls -CF'
 

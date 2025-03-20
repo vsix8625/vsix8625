@@ -5,7 +5,6 @@ alias sobrc="source ~/.bashrc"
 alias ebrc="$EDITOR ~/.bashrc"
 # Edit bash_aliases
 alias ebal="$EDITOR ~/.bash_aliases"
-
 alias elbsh="$EDITOR ~/.local_bash"
 alias egit="$EDITOR ~/.gitconfig"
 
@@ -13,8 +12,8 @@ alias grt="cd /"
 alias gho="cd "
 
 alias v="nvim"
+alias vdbg="nvim --cmd \"lua vim.g.debug_mode = 1\""
 alias gvim="cd $HOME/.config/nvim"
-alias gvim-colors="cd /usr/local/share/nvim/runtime/colors"
 
 # checks build for Makefile
 alias makeb="make -C build"
