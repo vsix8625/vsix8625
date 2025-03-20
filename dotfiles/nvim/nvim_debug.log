@@ -1,0 +1,110 @@
+[06:59:02]:  - 20-03-2025: nvim_debug_mode
+[06:59:02]:  - Start of "init.lua"
+[06:59:02]:  - Loading: vsix.globals
+[06:59:02]:  - Status: OK
+[06:59:02]:  - Loading: vsix.keymaps
+[06:59:02]:  - Status: OK
+[06:59:02]:  - Loading: vsix.opts
+[06:59:02]:  - swapfile = false
+[06:59:02]:  - guicursor = n-v-i-c:block-Cursor
+[06:59:02]:  - completeopt = menu,menuone,noselect
+[06:59:02]:  - pumheight = 10
+[06:59:02]:  - pumwidth = 20
+[06:59:02]:  - pumblend = 8
+[06:59:02]:  - laststatus = 3
+[06:59:02]:  - termguicolors = true
+[06:59:02]:  - number = false
+[06:59:02]:  - relativenumber = false
+[06:59:02]:  - scrolloff = 8
+[06:59:02]:  - hlsearch = true
+[06:59:02]:  - incsearch = true
+[06:59:02]:  - showcmd = false
+[06:59:02]:  - showfulltag = true
+[06:59:02]:  - updatetime = 50
+[06:59:02]:  - timeoutlen = 300
+[06:59:02]:  - conceallevel = 0
+[06:59:02]:  - mouse = a
+[06:59:02]:  - showtabline = 1
+[06:59:02]:  - ignorecase = true
+[06:59:02]:  - smartcase = true
+[06:59:02]:  - showmode = false
+[06:59:02]:  - splitbelow = true
+[06:59:02]:  - splitright = true
+[06:59:02]:  - signcolumn = yes
+[06:59:02]:  - undofile = true
+[06:59:02]:  - inccommand = split
+[06:59:02]:  - writebackup = false
+[06:59:02]:  - smartindent = true
+[06:59:02]:  - expandtab = false
+[06:59:02]:  - shiftwidth = 4
+[06:59:02]:  - tabstop = 4
+[06:59:02]:  - softtabstop = 2
+[06:59:02]:  - numberwidth = 2
+[06:59:02]:  - cursorline = true
+[06:59:02]:  - spelllang = en_us
+[06:59:02]:  - cmdheight = 0
+[06:59:02]:  - scrolljump = 1
+[06:59:02]:  - Status: OK
+[06:59:02]:  - Loading plugins
+[06:59:02]:  - Plugin: treesitter OK
+[06:59:02]:  - Plugin: telescope OK
+[06:59:02]:  - Plugin: mason OK
+[06:59:02]:  - Setting up plugins: Lazy
+[06:59:02]:  - Lazy done
+[06:59:02]:  - Initial "init.lua"
+[06:59:02]:  - Loading colorscheme
+[06:59:02]:  - Set to: zeus Status: OK
+[06:59:02]:  - Loading menu
+[06:59:02]:  - Status: OK
+[06:59:02]:  - Loading statusline
+[06:59:02]:  - Status: OK
+[06:59:02]:  - Loading: vsix.autocmds
+[06:59:02]:  - Status: OK
+[06:59:02]:  - Loading treestitter
+[06:59:02]:  - Loading lspconfig
+[06:59:02]:  - Setting up: lspconfig
+[06:59:02]:  - Status: OK
+[06:59:02]:  - Loading: vsix.autocmp
+[06:59:02]:  - Status: OK
+[06:59:02]:  - [Keymaps]
+[06:59:02]:  - Key: <Space> - Mode: n
+[06:59:02]:  - Type: string --> 
+[06:59:02]:  - Key: <Esc> - Mode: n
+[06:59:02]:  - Type: string --> <CMD>nohlsearch<CR>
+[06:59:02]:  - Key: <C-i> - Mode: n
+[06:59:02]:  - Type: string --> <C-i>
+[06:59:02]:  - Key: J - Mode: v
+[06:59:02]:  - Type: string --> :m '>+1<cr>gv=gv
+[06:59:02]:  - Key: K - Mode: v
+[06:59:02]:  - Type: string --> :m '<-2<cr>gv=gv
+[06:59:02]:  - Key: <leader>w - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e3681aa8
+[06:59:02]:  - Key: <leader>ww - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e3681b48
+[06:59:02]:  - Key: <leader>so - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e3681be8
+[06:59:02]:  - Key: <leader>lf - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e3681c88
+[06:59:02]:  - Key: <F12> - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e3681d28
+[06:59:02]:  - Key: <C-F12> - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e3681f48
+[06:59:02]:  - Key: <leader>cm - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e3681fe8
+[06:59:02]:  - Key: <C-c> - Mode: v
+[06:59:02]:  - Type: function --> function: 0x7be9e3682088
+[06:59:02]:  - Key: { - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e3682128
+[06:59:02]:  - Key: } - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e36821c8
+[06:59:02]:  - Key: <Home> - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e3682268
+[06:59:02]:  - Key: <leader><leader>e - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e3682308
+[06:59:02]:  - Key: <leader>ri - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e36823a8
+[06:59:02]:  - Key: <leader>[ - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e4350d30
+[06:59:02]:  - Key: <leader>1 - Mode: n
+[06:59:02]:  - Type: function --> function: 0x7be9e3681d58
+[06:59:02]:  - End of "init.lua"
