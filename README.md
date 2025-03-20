@@ -9,25 +9,13 @@ My focus areas include C programming, development tools, systems programming, an
 ## 🌐 Focus Language
 - **Focus Language:** C
 
-<details>
-<summary>My top languages</summary>
-
-| Rank | Languages |
-|-----:|-----------|
-|     1| C         |
-|     2| Bash      |
-|     3| Lua       |
-
-</details>
-
-
 ## 🔧 Technologies & Tools
 - **Editor:** Neovim
 - **Terminal:** Kitty, Gnome
 - **OS:** Linux Mint
 - **Version Control:** Git
 - **Compiler:** GCC, clang
-- **Build Tools:** Make, CMake, Custom scripts.
+- **Build Tools:** Make, CMake, Ninja, Custom scripts.
 
 <details open>
 <summary>My Prompt</summary>
@@ -35,9 +23,5 @@ My focus areas include C programming, development tools, systems programming, an
 ![ Image](assets/pictures/Prompt1.png "Prompt")
 
 </details>
-
-## Fun Fact
-- **Username:** I took this username from V6-Engines for their performance and robustness, used it more for online gaming.
-                 Little did i knew that Visual Studio use a VSIX package file.
 
 ## 
