@@ -6,7 +6,7 @@ function M.load()
 	lspconfig.clangd.setup {
 		cmd = { "clangd", "--clang-tidy", "--background-index" },
 		filetypes = { "c", "cpp", "objc", "objcpp" },
-		root_dir = require 'lspconfig'.util.root_pattern(".clangd", "compile_command.json"),
+		root_dir = require 'lspconfig'.util.root_pattern(".clangd", "compile_commands.json"),
 		settings = {
 			clangd = {
 				usePlaceholders = true,

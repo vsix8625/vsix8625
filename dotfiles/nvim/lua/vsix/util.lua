@@ -50,32 +50,33 @@ end
 function M.switch_cfile()
 	local file = vim.fn.expand("%:t:r")
 	local ext = vim.fn.expand("%:e")
-	local switch = 0
+	local dir = vim.fn.expand("%:p:h") -- Get the current directory
 	local switch_path = ""
 
 	if ext == "c" then
-		if is_file(file .. ".h") then
-			switch_path = file .. ".h"
-			switch = 1
+		if is_file(dir .. "/" .. file .. ".h") then -- Check in the same directory
+			switch_path = dir .. "/" .. file .. ".h"
 		elseif is_file("inc/" .. file .. ".h") then
 			switch_path = "inc/" .. file .. ".h"
-			switch = 1
 		elseif is_file("include/" .. file .. ".h") then
 			switch_path = "include/" .. file .. ".h"
-			switch = 1
+		else
+			print("Header file not found")
 		end
-	else
-		if is_file("src/" .. file .. ".c") then
+	elseif ext == "h" then
+		if is_file(dir .. "/" .. file .. ".c") then -- Check in the same directory
+			switch_path = dir .. "/" .. file .. ".c"
+		elseif is_file("src/" .. file .. ".c") then
 			switch_path = "src/" .. file .. ".c"
-			switch = 1
+		else
+			print("Source file not found")
 		end
 	end
 
-	if switch and switch_path then
-		print("switch")
+	if switch_path ~= "" then
 		vim.cmd("edit " .. switch_path)
 	else
-		print("Header/source not found for " .. file)
+		print("Switch path is nil")
 	end
 end
 
