@@ -29,15 +29,13 @@ table.insert(plugins_spec, { import = "plugins.treesitter" })
 utils.debug_log("Plugin: treesitter OK")
 table.insert(plugins_spec, { import = "plugins.telescope" })
 utils.debug_log("Plugin: telescope OK")
-table.insert(plugins_spec, { import = "plugins.mason" })
-utils.debug_log("Plugin: mason OK")
+table.insert(plugins_spec, { import = "plugins.nvim-lspconfig" })
+utils.debug_log("Plugin: nvim-lspconfig OK")
 --table.insert(plugins_spec, { import = "plugins.colorizer" })
 
 utils.debug_log("Setting up plugins: Lazy")
 require("lazy").setup({
-	spec = {
-		plugins_spec,
-	},
+	spec = plugins_spec,
 	checker = {
 		enabled   = false,
 		notify    = true,
@@ -100,21 +98,11 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			utils.debug_log("Error: " .. ts)
 		end
 
-		local lsp_ok, lspconf = pcall(require, "vsix.lspconfig")
-		utils.debug_log("Loading lspconfig")
-		if lsp_ok then
-			utils.debug_log("Setting up: lspconfig")
-			lspconf.load()
-			utils.debug_log("Status: OK")
-		else
-			print("Error: " .. lspconf)
-			utils.debug_log("Error: " .. lspconf)
-		end
+		require("vsix.lspconf").load()
 
 		utils.vsix_require("vsix.autocmp")
 	end,
 })
-
 
 vim.defer_fn(function()
 	utils.debug_log("End of \"init.lua\"")

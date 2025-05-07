@@ -186,3 +186,5 @@ PROMPT_COMMAND='update_ps1'
 
 source "$HOME/.local_bash"
 
+# VULKAN_SDK
+source "$HOME/dev/1.4.309.0/setup-env.sh"

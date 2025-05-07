@@ -4,8 +4,8 @@
 vim.cmd("hi clear")
 vim.g.colors_name = "zeus"
 local hi = function(name, val)
-  val.cterm = val.cterm or {}
-  vim.api.nvim_set_hl(0, name, val)
+	val.cterm = val.cterm or {}
+	vim.api.nvim_set_hl(0, name, val)
 end
 
 local background = "#111111"
@@ -19,7 +19,6 @@ hi("Normal", { bg = background, fg = foreground })
 hi("Cursor", { bg = "#11f4b1" })
 hi("String", { fg = "#ffffff" })
 hi("Character", { link = "Special" })
-hi("Comment", { fg = comment })
 hi("Number", { fg = "#B66149" })
 hi("Float", { link = "Number" })
 hi("Boolean", { fg = "#A45B5E", bold = true })
@@ -42,10 +41,10 @@ hi("hlsearch", { link = "Visual" })
 hi("Macro", { fg = "#70f4ff" })
 hi("Added", { fg = "#777777" })
 hi("Changed", { fg = "#999999" })
-hi("Removed", { fg = "#F11122" }) 
+hi("Removed", { fg = "#F11122" })
 hi("yanking", { bg = "#119599" })
 hi("@lsp.type.class.c", { link = "Type" })
-hi("@variable", { fg = "#5995f4"})
+hi("@variable", { fg = "#5995f4" })
 
 hi("Title", { fg = "#118599" })
 hi("TelescopeBorder", { fg = foreground, bg = background })
@@ -84,8 +83,6 @@ hi("Error", { bg = "#9F0e21", fg = "#0f0f0f" })
 hi("ErrorMsg", { bg = "#9F0e21", fg = "#0f0f0f", bold = true })
 hi("WarningMsg", { bg = "#ef6400", fg = "#0f0f0f", bold = true })
 
---TODO:some to do
-hi("Todo", { fg = "#ff0000" })
 hi("CursorColumn", { bg = "#9f1f1f" })
 hi("CursorIM", { link = "Cursor" })
 hi("CursorLineFold", { link = "FoldColumn" })
@@ -393,3 +390,12 @@ hi("jsonfold", { link = "String" })
 hi("VertSplit", { link = "Normal" })
 hi("Whitespace", { fg = "none", bg = "none" })
 hi("WildMenu", { link = "Pmenu" })
+
+hi("@markup.quote", { fg = foreground, bold = true })
+hi("@markup.header", { fg = "#222222", bold = true })
+hi("@markup.header.2", { fg = "#222222", bold = true })
+hi("@markup.link.label", { fg = foreground, bold = true })
+
+hi("@comment", { bg = background, fg = comment, italic = true, force = true })
+hi("@comment.todo", { bg = "#990606", fg = "#000000", bold = true, force = true })
+hi("@comment.note", { bg = "#125516", fg = "#000000", bold = true, force = true })

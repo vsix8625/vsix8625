@@ -6,12 +6,20 @@ vim.defer_fn(function()
 	end
 
 	local keymaps = {
-		{ "<Space>",           "",                                               "n" },
-		{ "<Esc>",             "<CMD>nohlsearch<CR>",                            "n" },
-		{ "<C-i>",             "<C-i>",                                          "n" },
-		{ "J",                 ":m '>+1<cr>gv=gv",                               "v" },
-		{ "K",                 ":m '<-2<cr>gv=gv",                               "v" },
+		{ "<Space>", "",                    "n" },
+		{ "<Esc>",   "<CMD>nohlsearch<CR>", "n" },
+		{ "<C-i>",   "<C-i>",               "n" },
+		{ "J",       ":m '>+1<cr>gv=gv",    "v" },
+		{ "K",       ":m '<-2<cr>gv=gv",    "v" },
 
+		{ ";", function()
+			vim.fn.setreg("/", "TODO")
+			vim.cmd("normal! n")
+		end, "n", },
+		{ ",", function()
+			vim.fn.setreg("/", "NOTE")
+			vim.cmd("normal! n")
+		end, "n", },
 		{ "<leader>w",         function() vim.cmd("w") end,                      "n", },
 		{ "<leader>ww",        function() vim.cmd("w!") end,                     "n", },
 		{ "<leader>so",        function() vim.cmd("so") end,                     "n", },

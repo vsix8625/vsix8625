@@ -47,36 +47,35 @@ local function is_file(path)
 	return vim.fn.filereadable(path) == 1
 end
 
+local function find_file_in_tree(filename)
+	local handle = io.popen("find . -type f -name '" .. filename .. "'")
+	if handle then
+		local result = handle:read("*l")
+		handle:close()
+		return result
+	end
+	return nil
+end
+
 function M.switch_cfile()
-	local file = vim.fn.expand("%:t:r")
+	local file = vim.fn.expand("%:t:r") -- filename without extension
 	local ext = vim.fn.expand("%:e")
-	local dir = vim.fn.expand("%:p:h") -- Get the current directory
-	local switch_path = ""
+	local target = ""
 
 	if ext == "c" then
-		if is_file(dir .. "/" .. file .. ".h") then -- Check in the same directory
-			switch_path = dir .. "/" .. file .. ".h"
-		elseif is_file("inc/" .. file .. ".h") then
-			switch_path = "inc/" .. file .. ".h"
-		elseif is_file("include/" .. file .. ".h") then
-			switch_path = "include/" .. file .. ".h"
-		else
-			print("Header file not found")
-		end
-	elseif ext == "h" then
-		if is_file(dir .. "/" .. file .. ".c") then -- Check in the same directory
-			switch_path = dir .. "/" .. file .. ".c"
-		elseif is_file("src/" .. file .. ".c") then
-			switch_path = "src/" .. file .. ".c"
-		else
-			print("Source file not found")
-		end
+		target = file .. ".h"
+	elseif ext == "h" or ext == "hpp" then
+		target = file .. ".c"
+	else
+		print("Unsupported extension: " .. ext)
+		return
 	end
 
-	if switch_path ~= "" then
-		vim.cmd("edit " .. switch_path)
+	local found = find_file_in_tree(target)
+	if found then
+		vim.cmd("edit " .. found)
 	else
-		print("Switch path is nil")
+		print("No matching file found for " .. target)
 	end
 end
 

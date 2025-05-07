@@ -39,9 +39,6 @@ alias cidf="find . -type f | wc -l"
 # 
 alias cls="clear && echo && ls"
 
-# Network manager restart
-alias nmrestart="gnome-terminal --window-with-profile=gnome --geometry=30x30+1800+800 -- bash -c 'sudo systemctl restart NetworkManager && ping 8.8.8.8; exec bash'"
-
 alias df="df -h"      #  -h human readable flag
 alias free="free -m"  # shows in MB
 
@@ -61,7 +58,7 @@ alias ...="cd ../.."
 alias .3="cd ../../.."
 
 alias :q="exit"
-alias :gnight="shutdown -h now"
+alias hdsize="du -sh ."
  
 # pictures in terminal
 alias icat="kitten icat"

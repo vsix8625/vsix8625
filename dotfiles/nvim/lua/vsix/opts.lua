@@ -4,7 +4,7 @@ local opts = {
 	{ "guicursor",      "n-v-i-c:block-Cursor" },
 	{ "completeopt",    "menu,menuone,noselect" },
 	{ "pumheight",      10 },
-	{ "pumwidth",       20 },
+	{ "pumwidth",       25 },
 	{ "pumblend",       8 },
 	{ "laststatus",     3 },
 	{ "termguicolors",  true },
