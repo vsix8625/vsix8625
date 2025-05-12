@@ -39,6 +39,16 @@ vim.defer_fn(function()
 		{ "<leader><leader>e", function() vim.cmd("ColorizerToggle") end,        "n", },
 		{ "<leader>ri",        function() vim.cmd("so " .. vim.env.MYVIMRC) end, "n", },
 
+		-- splits
+		{ "<C-h>",             "<C-w><C-h>",                                     "n", },
+		{ "<C-l>",             "<C-w><C-l>",                                     "n", },
+		{ "<C-j>",             "<C-w><C-j>",                                     "n", },
+		{ "<C-k>",             "<C-w><C-k>",                                     "n", },
+		{ "<leader><C-s>",     function() vim.cmd("V") end,                      "n", },
+		{ "<leader><C-a>",     function() vim.cmd("split") end,                  "n", },
+
+
+
 		{ "<leader>[",         utils.switch_cfile,                               "n", },
 		{ "<leader>1", function()
 			utils.flterminal()

@@ -43,10 +43,6 @@ function M.load()
 	}
 
 
-	lspconfig.bashls.setup {
-		filetypes = { "sh" },
-	}
-
 	Servers = { "clangd", "pyright", "lua_ls" }
 
 	local function on_attach(client, bufnr)
@@ -62,7 +58,7 @@ function M.load()
 		buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>", opts)
 		buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>", opts)
 		buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<cr>", opts)
-		buf_set_keymap("n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
+		buf_set_keymap("n", "<C-s>", "<cmd>lua vim.lsp.buf.signature_help()<cr>", opts)
 		buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>", opts)
 
 		buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)

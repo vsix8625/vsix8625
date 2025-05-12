@@ -73,11 +73,17 @@ clr12='\033[38;5;12m\]'
 clr13='\033[38;5;13m\]'
 clr14='\033[38;5;14m\]'
 clr15='\033[38;5;15m\]'
-clr16='\033[40;5;16m\]'
-clr17='\033[41;5;17m\]'
-clr18='\033[42;5;18m\]'
-clr19='\033[43;5;19m\]'
-clr20='\033[44;5;20m\]'
+clr16='\033[38;5;16m\]'
+clr17='\033[38;5;17m\]'
+clr18='\033[38;5;18m\]'
+clr19='\033[38;5;19m\]'
+clr20='\033[38;5;20m\]'
+clr23='\033[38;5;23m\]'
+clr28='\033[38;5;28m\]'
+clr49='\033[38;5;49m\]'
+clr52='\033[38;5;52m\]'
+clr130='\033[38;5;130m\]'
+clr131='\033[38;5;131m\]'
 
 circle_green="\U1f7e2"
 circle_red="\U1f534"
@@ -89,12 +95,12 @@ update_ps1(){
   else
     exit_status="$circle_green "
   fi
-  PS1="\n$clr8$(printf "\U250f\U2501")$reset[$clr11\u$clr4@$clr3\h$reset]: $clr8\w $clr8\n$(printf "\U2517\U2501>$reset $exit_status")"
+  PS1="\n$clr15$(printf "\U250f\U2501")$reset[$clr130\u$clr23@$clr12\h$reset]: $clr8\w $clr15\n$(printf "\U2517\U2501>$reset $exit_status")"
 }
 
 if [ "$color_prompt" = yes ]; then
     #PS1='\[\033[38;5;03m\]\s:${debian_chroot:+($debian_chroot)}\[\033[38;5;11m\]\u\[\033[38;5;02m\]@\h\[\033[16m\]:\[\033[38;5;03m\]\w\[\033[0m\] \$ '
-    PS1="\n$(printf "\U250f\U2501")$clr11[\u$clr16@$clr6\h]: $clr3\w $reset\n$(printf "\U2517\U2501> " )"
+    PS1="\n$(printf "\U250f\U2501")$clr130[\u$clr23@$clr12\h]: $clr52\w $reset\n$(printf "\U2517\U2501> " )"
 else
     PS1='${debian_chroot:+($debian_chroot)}[\033[38;5;01m\]\u@\h:\w\$ '
 fi
@@ -123,9 +129,9 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # colored GCC warnings and errors
-export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
+export GCC_COLORS='error=38;5;88:warning=38;5;172:note=38;5;22:caret=01;32:locus=01:quote=01'
 
-export LS_COLORS="di=01;33:fi=36:ln=1;36:pi=1;33:ex=1;31;40:so=1;35:cd=1;33;41:*.jpg=35:*.png=35:*.c=1;34:*.h=1;32"
+export LS_COLORS="di=38;5;202:fi=38;5;101:ln=38;5;226:pi=38;5;52:ex=38;5;124:so=1;35:cd=1;33;41:*.jpg=35:*.png=35:*.c=38;5;31:*.h=38;5;22"
 
 # some more ls aliases
 alias ll='ls -alFh --color=always'
