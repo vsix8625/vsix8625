@@ -18,8 +18,8 @@ vim.api.nvim_create_autocmd("FileType", {
 	callback = function()
 		vim.api.nvim_set_option_value("omnifunc", "ccomplete#Complete", { buf = 0 })
 		vim.api.nvim_set_option_value("cindent", true, { buf = 0 })
-		vim.api.nvim_set_option_value("shiftwidth", 2, { buf = 0 })
-		vim.api.nvim_set_option_value("tabstop", 2, { buf = 0 })
+		vim.api.nvim_set_option_value("shiftwidth", 4, { buf = 0 })
+		vim.api.nvim_set_option_value("tabstop", 4, { buf = 0 })
 	end,
 })
 

@@ -1,0 +1,49 @@
+---
+Language: Cpp  # Use Cpp for C code (clang-format standard)
+BasedOnStyle: LLVM  # Start with LLVM as a clean base
+AlignAfterOpenBracket: Align  # Align arguments after open bracket
+AlignConsecutiveAssignments: false  # Don't align assignments across lines
+AlignConsecutiveDeclarations: false  # Don't align declarations across lines
+AlignEscapedNewlines: Right  # Align backslash-newline right
+AlignOperands: true  # Align operands of binary/ternary expressions
+AlignTrailingComments: true  # Align trailing comments
+AllowAllParametersOfDeclarationOnNextLine: true  # Allow function parameters to spill to next line
+AllowShortBlocksOnASingleLine: false  # Disallow short blocks on one line
+AllowShortCaseLabelsOnASingleLine: false  # Disallow short case labels on one line
+AllowShortFunctionsOnASingleLine: None  # No inline short functions
+AllowShortIfStatementsOnASingleLine: false  # No single-line if statements
+AllowShortLoopsOnASingleLine: false  # No single-line loops
+AlwaysBreakAfterReturnType: None  # Don't force break after return type
+AlwaysBreakBeforeMultilineStrings: false  # Don't break before multiline strings
+BinPackArguments: true  # Pack arguments if they fit
+BinPackParameters: true  # Pack parameters if they fit
+BraceWrapping:
+  AfterCaseLabel: true  # Break after case label (Allman)
+  AfterControlStatement: true  # Break after if/while/for (Allman)
+  AfterEnum: true  # Break after enum (Allman)
+  AfterFunction: true  # Break after function (Allman)
+  AfterStruct: true  # Break after struct (Allman)
+  AfterUnion: true  # Break after union (Allman)
+  BeforeElse: true  # Break before else (Allman)
+  IndentBraces: false  # Don't indent braces
+BreakBeforeBraces: Allman  # Explicitly use Allman brace style
+ColumnLimit: 120  # NASA prefers readable line lengths
+ContinuationIndentWidth: 4  # Indent continuation lines by 4 spaces
+IndentCaseLabels: true  # Indent case labels under switch
+IndentWidth: 4  # 4-space indentation (NASA standard)
+KeepEmptyLinesAtTheStartOfBlocks: false  # Remove empty lines at block start
+MaxEmptyLinesToKeep: 1  # Allow at most one empty line
+PointerAlignment: Right  
+ReflowComments: true  # Reflow comments to fit column limit
+SpaceAfterCStyleCast: true  # Space after C-style casts
+SpaceBeforeAssignmentOperators: true  # Space before =, +=, etc.
+SpaceBeforeParens: ControlStatements  # Space before ( in if/while/for
+SpaceInEmptyParentheses: false  # No space in empty ()
+SpacesBeforeTrailingComments: 2  # Two spaces before trailing comments
+SpacesInCStyleCastParentheses: false  # No spaces in (type) cast
+SpacesInContainerLiterals: true  # Spaces in {1, 2, 3}
+SpacesInParentheses: false  # No spaces in (expression)
+SpacesInSquareBrackets: false  # No spaces in [index]
+TabWidth: 4  # Treat tabs as 4 spaces (though tabs are avoided)
+UseTab: Never  # No tabs, only spaces (NASA standard)
+---

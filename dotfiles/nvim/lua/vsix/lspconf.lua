@@ -4,9 +4,9 @@ function M.load()
 	local lspconfig = require("lspconfig")
 
 	lspconfig.clangd.setup {
-		cmd = { "clangd", "--clang-tidy", "--background-index" },
+		cmd = { "clangd", "--clang-tidy", "--background-index", "--offset-encoding=utf-16" },
 		filetypes = { "c", "cpp", "objc", "objcpp" },
-		root_dir = require 'lspconfig'.util.root_pattern(".clangd", "compile_commands.json"),
+		root_dir = require 'lspconfig'.util.root_pattern(".clangd", "compile_commands.json", ".clangd-format"),
 		settings = {
 			clangd = {
 				usePlaceholders = true,
