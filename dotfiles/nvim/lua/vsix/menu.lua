@@ -1,14 +1,5 @@
 local M = {}
 
-local icons = {
-  dir       = "\u{1F5C2}",
-  new_file  = "\u{1f4c4}",
-  magnifier = "\u{1f50e}",
-  config    = "\u{1f527}",
-  exit      = "\u{274c}",
-  tree      = "\u{1f332}",
-}
-
 local function create_menu_item(icon, text, key)
   local text_width = 51
   local add_spaces = string.rep(" ", text_width - (#text + #key + 2))
@@ -69,13 +60,13 @@ local function init_menu()
     string.format("Current Directory: %s (%d dirs, %d files)", pwd, dir_count, file_count),
     string.format("Last Modified: %s (%d days ago)", mod_time, mod_time_days),
     "",
-    create_menu_item(icons["dir"], "Open Directory", "(R) "),
-    create_menu_item(icons["tree"], "Explorer (Netrw)", "(x) "),
-    create_menu_item(icons["new_file"], "New File", "(n) "),
-    create_menu_item(icons["magnifier"], "Find Files", "(f) "),
-    create_menu_item(icons["config"], "Neovim Settings", "(C) "),
-    create_menu_item(icons["config"], "Update", "(U) "),
-    create_menu_item(icons["exit"], "Exit", "(q) "),
+    create_menu_item("", "Open Directory", "(R) "),
+    create_menu_item("", "Explorer (Netrw)", "(x) "),
+    create_menu_item("", "New File", "(n) "),
+    create_menu_item("", "Find Files", "(f) "),
+    create_menu_item("", "Neovim Settings", "(C) "),
+    create_menu_item("", "Update", "(U) "),
+    create_menu_item("", "Exit", "(q) "),
     "",
     string.format("Neovim: %d.%d.%d", nvim_v[1], nvim_v[2], nvim_v[3]),
     string.format("Lua: %s", lua_version),

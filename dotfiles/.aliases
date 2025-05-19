@@ -1,5 +1,5 @@
-alias ebrc="$EDITOR $HOME/.bashrc"
-alias ebal="$EDITOR $HOME/.aliases"
+# alias ebrc="$EDITOR $HOME/.bashrc"
+# alias ebal="$EDITOR $HOME/.aliases"
 
 alias v="nvim"
 alias gvim="$EDITOR $HOME/.config/nvim"

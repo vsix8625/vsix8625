@@ -1,54 +1,5 @@
 local M = {}
 
-local theme_icon = { eyes           = " \u{1f440} ",
-  sun            = " \u{1f31e} ",
-  neovimo        = " \u{2115} ",
-  neovimo_modern = " \u{2115} ",
-  fallout        = " \u{2622} ",
-  zeus           = " \u{26a1} ",
-  ares           = " \u{2694} ",
-  poseidon       = " \u{1F531} ",
-  spectral       = " \u{1F4AB} ",
-  void           = " \u{1f573} ",
-  nebula         = " \u{1f30c} ",
-  supernova      = " \u{1f4a5} ",
-}
-
-local icons = {  
-  dir         = " \u{1F5C2}",
-  saved       = " \u{1f7e2} ",
-  unsaved     = " \u{1f534} ",
-  open_file   = " \u{1f4c2}",
-  right_arrow = " \u{27a6}",
-  top_arrow   = "\u{1f51d}",
-  pen         = " \u{1f58b}",
-  calendar    = "\u{1f4c6}",
-  ruler       = " \u{1f4cf}",
-  wrench      = " \u{1f527}",
-  colors      = " \u{1f3a8}",
-  floppy_disk = " \u{1f4be}",
-  stop        = " \u{1f6d1}",
-  column_bars = " \u{1f4ca}",
-  status_ok   = " \u{1f7e2} ",
-  status_fail = " \u{1f534} ",
-  red_x       = "\u{274c} ",
-  red_ex      = "\u{2757}",
-}
-
-local clock = {
-  "\u{1f550}", "\u{1f551}",
-  "\u{1f552}", "\u{1f553}",
-  "\u{1f554}", "\u{1f555}",
-  "\u{1f556}", "\u{1f557}",
-  "\u{1f558}", "\u{1f559}",
-  "\u{1f55a}", "\u{1f55b}",
-  "\u{1f55c}", "\u{1f55d}",
-  "\u{1f55e}", "\u{1f55f}",
-  "\u{1f560}", "\u{1f561}",
-  "\u{1f562}", "\u{1f563}",
-  "\u{1f564}", "\u{1f565}",
-  "\u{1f566}", "\u{1f567}",
-}
 
 local api = vim.api
 local hl = api.nvim_set_hl
@@ -80,17 +31,17 @@ local function get_lsp_diagnostics()
   local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
   local info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
   local hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-  local diagnostics = icons["status_ok"]
+  local diagnostics = "S:"
 
   vim.g.is_lsp_error = false
 
   if errors > 0 then
-    diagnostics = icons["status_fail"] .. " (" .. icons["red_x"] .. errors .. ") "
+    diagnostics = "E:" .. " (" .. "X" .. errors .. ") "
     vim.g.is_lsp_error = true
   end
 
   if warnings > 0 then
-    diagnostics = diagnostics .. "(" .. icons["red_ex"] .. warnings .. ") "
+    diagnostics = diagnostics .. "(" .. "X" .. warnings .. ") "
     vim.g.is_lsp_error = true
   end
 
@@ -113,11 +64,11 @@ end
 local os_info = vim.uv.os_uname()
 local sys_information
 if os_info.sysname == "Windows_NT" then
-  sys_information = " \u{1f5a5} Windows "
+  sys_information = " Windows "
 elseif os_info.sysname == "Linux" then
-  sys_information = " \u{1F427} Linux "
+  sys_information = " Linux "
 else
-  sys_information = " \u{1f34e} MacOS "
+  sys_information = " MacOS "
 end
 
 
@@ -126,7 +77,7 @@ end
 local hour_n = 1
 function MyWinbar()
   local winbar
-  local colorscheme_icon = theme_icon[vim.g.colors_name]
+  local colorscheme_icon = " "
   local is_changed = vim.bo.modified
 
   local time = os.date(" %H:%M:%S")
@@ -135,12 +86,12 @@ function MyWinbar()
   if hour_n >= 24 then
     hour_n = 1
   end
-  local date_time = string.format([[%s%s %s%s]], icons["calendar"], date, clock[hour_n], time)
+  local date_time = string.format([[%s%s %s%s]]," " , date, " ", time)
 
   sync_colors()
 
   if colorscheme_icon == nil then
-    colorscheme_icon = theme_icon["eyes"]
+    colorscheme_icon = " "
   end
 
   -- hides the theme name and icon if vim.g.show_theme_name is set to false
@@ -153,13 +104,13 @@ function MyWinbar()
 
   -- the main winbar
   winbar = "%#modeNormal#" ..
-      icons["right_arrow"] .. icons["open_file"] .. " %t [%#linenr#%n%#modeNormal#] %=" ..
+      "-->" .. " %t [%#linenr#%n%#modeNormal#] %=" ..
       theme_name_icon .. "%=" .. sys_information
 
   ----------------------------------------------------------------------------------------------------
 
   if is_changed then
-    winbar = "%#errormsg#" .. icons["dir"] .. " %F " .. icons["floppy_disk"] ..
+    winbar = "%#errormsg#" .. " %F " .. 
         "%=Diagnostics: " .. get_lsp_diagnostics()
   end
   ----------------------------------------------------------------------------------------------------
@@ -202,9 +153,9 @@ function MyStatusline()
 
   local save_status
   if is_changed then
-    save_status = "%#unSaveStatus#" .. icons["unsaved"]
+    save_status = "%#unSaveStatus#" .. "$"
   else
-    save_status = "%#saveStatus#" .. icons["saved"]
+    save_status = "%#saveStatus#" 
   end
 
   -- normal mode statusline
@@ -218,7 +169,7 @@ function MyStatusline()
   if mode == "i" then
     local cursor = line:sub(1, col)
 
-    statusline = icons["pen"] .. " %c %m --> %#normal#" .. cursor
+    statusline = "I: %c %m --> %#normal#" .. cursor
   end
 
   ----------------------------------------------------------------------------------------------------
@@ -231,7 +182,7 @@ function MyStatusline()
 
     local cursor = "Replace: %m " .. line:sub(col, end_col - 1)
 
-    statusline = icons["wrench"] .. " --> %#normal# " .. cursor
+    statusline = " --> %#normal# " .. cursor
   end
   ----------------------------------------------------------------------------------------------------
 
