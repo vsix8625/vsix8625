@@ -1,5 +1,4 @@
 #!/usr/bin/env bash
-#Copyright (C) 2025 Panagiotis Panteli
 
 set -euo pipefail
 
