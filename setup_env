@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+#Copyright (C) 2025 Panagiotis Panteli
+
+set -euo pipefail
+
+DOTFILES="$HOME/repos/vsix8625/dotfiles"
+
+ln -sf $DOTFILES/.bashrc ~/.bashrc
+
+ln -sf $DOTFILES/.aliases ~/.aliases
+
+ln -sf $DOTFILES/.clang-format ~/.clang-format
+
+ln -s $DOTFILES/nvim ~/.config/nvim
