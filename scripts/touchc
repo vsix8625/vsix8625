@@ -1,0 +1,45 @@
+#!/usr/bin/env bash
+#Copyright (C) 2025 Panagiotis Panteli
+
+set -euo pipefail
+
+RESET='\033[0m'
+BOLD='\033[1m'
+BLACK='\033[30m'
+RED='\033[31m'
+GREEN='\033[32m'
+YELLOW='\033[33m'
+BLUE='\033[34m'
+MAGENTA='\033[35m'
+CYAN='\033[36m'
+WHITE='\033[37m'
+
+exe_name=$(basename "$0")
+
+if [[ "$#" -lt 1 ]]; then
+	clear
+	printf "${RED}Usage: $exe_name <filename1> <filename2> ... <filenameN>${RESET}\n"
+	exit 1
+fi
+
+for filepath in "$@"; do 
+	dir_name=$(dirname "$filepath")
+    if [[ "$dir_name" == "." ]]; then
+        dir_name="$PWD"
+    fi
+
+	base_name=$(basename "$filepath" .h)
+	mkdir -p "$dir_name"
+
+	src_file="${dir_name}/${base_name}.c"
+	file_contents="#include <stdio.h> 
+
+
+int main(int argc, char **argv){
+	char *welcome = \"Hello, World\";
+	printf(\"%s\n\", welcome);
+	return 0;
+}"
+	echo "$file_contents" > "$src_file"
+	printf "${YELLOW}Source file ${GREEN}%s${RESET} created in ${BLUE}%s${RESET}\n" $src_file $dir_name
+done
