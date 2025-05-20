@@ -39,6 +39,7 @@ clr131='\033[38;5;131m\]'
 PS1="\n$clr130[\u$clr23@$clr12\h]: $clr52\w $reset\n$(printf "$ " )"
 #PS1='[\u@\h \W]\$ '
 
+export TERM=xterm-256color
 
 export GCC_COLORS='error=38;5;88:warning=38;5;172:note=38;5;22:caret=01;32:locus=01:quote=01'
 export LS_COLORS="di=38;5;202:fi=38;5;101:ln=38;5;226:pi=38;5;52:ex=38;5;124:so=1;35:cd=1;33;41:*.jpg=35:*.png=35:*.c=38;5;31:*.h=38;5;22"
