@@ -3,6 +3,7 @@ alias ebal="$EDITOR $HOME/.aliases"
 alias ebpr="$EDITOR $HOME/.bash_profile"
 alias ehyp="$EDITOR $HOME/.config/hypr/hyprland.conf"
 
+alias gdenv="cd $DEVENV"
 alias egrub="sudo $EDITOR /etc/default/grub"
 
 alias ff="firefox & disown"

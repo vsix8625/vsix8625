@@ -3,7 +3,7 @@
 
 set -euo pipefail
 
-DOTFILES="$HOME/repos/vsix8625/dotfiles"
+DOTFILES="/devenv/repos/vsix8625/dotfiles"
 
 ln -sf $DOTFILES/.bashrc ~/.bashrc
 
