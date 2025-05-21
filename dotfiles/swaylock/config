@@ -1,0 +1,18 @@
+# Basic settings
+daemonize
+indicator
+clock
+screenshots
+effect-blur=7x3
+effect-vignette=0.5:0.5
+fade-in=0.5
+font=Sans
+show-failed-attempts
+line-color=00000000
+inside-color=00000088
+separator-color=00000000
+indicator-radius=90
+indicator-thickness=6
+ring-color=455a6488
+key-hl-color=be504688
+text-color=ffc20788
