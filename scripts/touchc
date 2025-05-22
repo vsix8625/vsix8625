@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-#Copyright (C) 2025 Panagiotis Panteli
-
 set -euo pipefail
 
 RESET='\033[0m'

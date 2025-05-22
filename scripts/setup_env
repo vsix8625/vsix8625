@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-#Copyright (C) 2025 Panagiotis Panteli
-
 set -euo pipefail
 
 DOTFILES="/devenv/repos/vsix8625/dotfiles"
