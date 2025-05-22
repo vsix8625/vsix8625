@@ -12,4 +12,5 @@ mkdir -p ~/.config
 ln -sf $DOTFILES/nvim ~/.config/nvim
 ln -sf "$DOTFILES/foot" ~/.config/foot
 ln -sf "$DOTFILES/hypr" ~/.config/hypr
+ln -sf "$DOTFILES/waybar" ~/.config/waybar
 ln -sf "$DOTFILES/swaylock" ~/.config/swaylock
