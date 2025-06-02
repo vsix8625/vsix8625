@@ -8,7 +8,7 @@ local hi = function(name, val)
 	vim.api.nvim_set_hl(0, name, val)
 end
 
-local background = none
+local background = "#111111"
 local foreground = "#5995b4"
 
 local comment = "#39434f"
