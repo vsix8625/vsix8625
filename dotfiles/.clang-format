@@ -27,13 +27,13 @@ BraceWrapping:
   BeforeElse: true  # Break before else (Allman)
   IndentBraces: false  # Don't indent braces
 BreakBeforeBraces: Allman  # Explicitly use Allman brace style
-ColumnLimit: 120  # NASA prefers readable line lengths
+ColumnLimit: 120  # Readable line length
 ContinuationIndentWidth: 4  # Indent continuation lines by 4 spaces
 IndentCaseLabels: true  # Indent case labels under switch
 IndentWidth: 4  # 4-space indentation (NASA standard)
 KeepEmptyLinesAtTheStartOfBlocks: false  # Remove empty lines at block start
 MaxEmptyLinesToKeep: 1  # Allow at most one empty line
-PointerAlignment: Right  
+PointerAlignment: Right # Personal preference  
 ReflowComments: true  # Reflow comments to fit column limit
 SpaceAfterCStyleCast: true  # Space after C-style casts
 SpaceBeforeAssignmentOperators: true  # Space before =, +=, etc.

@@ -9,7 +9,7 @@ alias egrub="sudo $EDITOR /etc/default/grub"
 alias fox="firefox & disown"
 alias ff="fastfetch"
 alias v="nvim"
-alias gvim="$EDITOR $HOME/.config/nvim"
+alias gvim="cd $HOME/.config/nvim"
 alias sudovi="sudo -E $EDITOR"
 
 alias hypseslog="$EDITOR $XDG_RUNTIME_DIR/hypr/$(ls -t $XDG_RUNTIME_DIR/hypr/ | head -n 2 | tail -n 1)/hyprland.log"
