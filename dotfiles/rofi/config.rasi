@@ -1,26 +1,32 @@
 configuration {
-  show-icons: true;
-  icon-theme: "Papirus-Dark";
-  drun-display-format: "{icon} {name}";
+	font: "FiraCode 18";
+    show-icons: true;
+    icon-theme: "Papirus-Dark";
+    drun-display-format: "{icon}: {name}";
+}
+
+* {
+    background-color: rgba(20, 20, 20, 80%);
+    border-color: rgba(64, 224, 208, 80%);
+    text-color: #ffffff;
 }
 
 window {
-  transparency: "real";
-  background-color: transparent;
+    transparency: "real";
+    padding: 15px;
 }
 
 mainbox {
-  background-color: rgba(30, 30, 46, 0.3);
-  border: 2px solid rgba(100, 100, 100, 0.5);
+    children: [prompt, entry, listview];
+    spacing: 15px;
 }
 
 element {
-  background-color: transparent;
-  text-color: #ffffff;
+    padding: 10px;
 }
 
 element selected {
-  background-color: rgba(255, 255, 255, 0.1);
-  text-color: #89dceb;
+    background-color: rgba(64, 204, 208, 30%);
+    text-color: #89dceb;
 }
 
