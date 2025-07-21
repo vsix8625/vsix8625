@@ -15,23 +15,23 @@ function M.load()
 		}
 	}
 
-	lspconfig.lua_ls.setup({
-		cmd = { "lua-language-server" },
-		filetypes = { "lua" },
-		settings = {
-			Lua = {
-				diagnostics = {
-					globals = { "vim", "use" },
-				},
-				workspace = {
-					library = vim.api.nvim_get_runtime_file("", true),
-				},
-				telemetry = {
-					enable = false,
-				},
-			},
-		},
-	})
+--	lspconfig.lua_ls.setup({
+--		cmd = { "lua-language-server" },
+--		filetypes = { "lua" },
+--		settings = {
+--			Lua = {
+--				diagnostics = {
+--					globals = { "vim", "use" },
+--				},
+--				workspace = {
+--					library = vim.api.nvim_get_runtime_file("", true),
+--				},
+--				telemetry = {
+--					enable = false,
+--				},
+--			},
+--		},
+--	})
 
 	lspconfig.pyright.setup {
 		filetypes = { "python" },
@@ -43,7 +43,7 @@ function M.load()
 	}
 
 
-	Servers = { "clangd", "pyright", "lua_ls" }
+	Servers = { "clangd", "pyright"}
 
 	local function on_attach(client, bufnr)
 		local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
