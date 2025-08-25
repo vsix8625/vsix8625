@@ -1,3 +1,4 @@
+Pacman Packages:
 alsa-lib
 amd-ucode
 android-studio
@@ -92,3 +93,14 @@ xorg-xwayland
 yay
 yay-debug
 zip
+
+AUR Packages:
+android-studio 2025.1.2.11-1
+downgrade 11.5.2-1
+phonon-qt6-mpv 0.1.0-3
+rofi-lbonn-wayland-git 1.7.9.wayland1.r0.g07955bf9-1
+rofi-lbonn-wayland-git-debug 1.7.9.wayland1.r0.g07955bf9-1
+swaylock-effects 1.7.0.0-4
+swaylock-effects-debug 1.7.0.0-4
+yay 12.5.0-1
+yay-debug 12.5.0-1
