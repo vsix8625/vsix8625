@@ -1,9 +1,7 @@
 local M = {}
 
 function M.load()
-	local lspconfig = require("lspconfig")
-
-	lspconfig.clangd.setup {
+	vim.lsp.config("clangd", {
 		cmd = { "clangd", "--clang-tidy", "--background-index", "--offset-encoding=utf-16" },
 		filetypes = { "c", "cpp", "objc", "objcpp" },
 		root_dir = require 'lspconfig'.util.root_pattern(".clangd", "compile_commands.json", ".clangd-format"),
@@ -13,37 +11,9 @@ function M.load()
 				completeUnimported = true,
 			}
 		}
-	}
+	})
 
---	lspconfig.lua_ls.setup({
---		cmd = { "lua-language-server" },
---		filetypes = { "lua" },
---		settings = {
---			Lua = {
---				diagnostics = {
---					globals = { "vim", "use" },
---				},
---				workspace = {
---					library = vim.api.nvim_get_runtime_file("", true),
---				},
---				telemetry = {
---					enable = false,
---				},
---			},
---		},
---	})
-
-	lspconfig.pyright.setup {
-		filetypes = { "python" },
-		Settings = {
-			pyright = {
-				autoSearchPaths = true
-			}
-		}
-	}
-
-
-	Servers = { "clangd", "pyright"}
+	Servers = { "clangd"}
 
 	local function on_attach(client, bufnr)
 		local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
@@ -86,12 +56,12 @@ function M.load()
 	end
 
 	for _, lsp in pairs(Servers) do
-		lspconfig[lsp].setup {
+		vim.lsp.config(lsp, {
 			on_attach = on_attach,
 			flags = {
 				debounce_text_changes = 150,
 			}
-		}
+		})
 	end
 end
 
