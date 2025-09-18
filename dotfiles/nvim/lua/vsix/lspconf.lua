@@ -1,16 +1,19 @@
 local M = {}
 
-function M.load()
-    local servers = {
-        'clangd',
-    }
+local function module_name_from_file(file)
+    return file:gsub("%.lua$", "")
+end
 
-    for _, server in ipairs(servers) do
-        local ok, conf = pcall(require, 'vsix.lsp.'..server)
-        if ok then
+function M.load()
+    -- path to the lsp folder
+    local lsps_path = vim.fn.stdpath("config") .. "/lua/vsix/lsp/"
+    local files = vim.fn.glob(lsps_path .. "*.lua", true, true)
+
+    for _, file in ipairs(files) do
+        local mod_name = module_name_from_file(vim.fn.fnamemodify(file, ":t"))
+        local ok, conf = pcall(require, "vsix.lsp." .. mod_name)
+        if ok and conf and conf.load then
             conf.load()
-        else
-            print('Failed to load LSP: ' .. server)
         end
     end
 end
