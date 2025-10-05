@@ -1,6 +1,6 @@
 local M = {
 	"nvim-treesitter/nvim-treesitter",
-	"nvim-treesitter/playground",
+	--"nvim-treesitter/playground",
 }
 
 function M.config()

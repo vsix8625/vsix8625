@@ -1,7 +1,3 @@
-#
-# ~/.bashrc
-#
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
@@ -58,5 +54,9 @@ esac
 
 export PATH
 
-source "$HOME/.aliases"
+[ -f "$HOME/.aliases" ] && source "$HOME/.aliases"
+[ -f "$HOME/.user_func" ] && source "$HOME/.user_func"
 
+
+# Auto write by Atlas Build Manager
+export PATH="$PATH:/devenv/projects/Atlas_Build_Manager/build/bin/debug/atl"

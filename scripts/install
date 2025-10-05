@@ -9,8 +9,8 @@ ln -sf $DOTFILES/.clang-format ~/.clang-format
 
 # Configs
 mkdir -p ~/.config
-ln -sf $DOTFILES/nvim ~/.config/
+ln -sf "$DOTFILES/nvim" ~/.config/
 ln -sf "$DOTFILES/foot" ~/.config/
-ln -sf "$DOTFILES/hypr" ~/.config/
+ln -sf "$DOTFILES/sway" ~/.config/
 ln -sf "$DOTFILES/waybar" ~/.config/
 ln -sf "$DOTFILES/swaylock" ~/.config/
