@@ -199,6 +199,7 @@ mode "resize" {
     bindsym Return mode "default"
     bindsym Escape mode "default"
 }
+
 bindsym $mod+r mode "resize"
 #
 # Utilities:
@@ -213,9 +214,9 @@ bindsym $mod+r mode "resize"
     bindsym --locked XF86MonBrightnessUp exec brightnessctl set 5%+
 
     # Special key to take a screenshot with grim
-    bindsym Print exec grim $HOME/Pictures/screenshot-$(date +%F-%T).png, notify-send "Screenshot saved in: $HOME/Pictures"
+	bindsym Print exec sh -c 'grim "$HOME/Pictures/screenshot-$(date +%F-%T).png" && notify-send "Screenshot saved in: $HOME/Pictures" && paplay "$HOME/Downloads/sci-fi-confirm.wav"'
     # Special key to take a screenshot with slurp
-	bindsym $mod+Shift+Print exec slurp, grim -g - - , tee $HOME/Pictures/screenshot-$(date +%F-%T).png, wl-copy, notify-send "Screenshot saved in: $HOME/Pictures"
+	bindsym $mod+Shift+Print exec sh -c 'slurp | grim -g - - | tee $HOME/Pictures/screenshot-$(date +%F-%T).png | wl-copy && notify-send "Screenshot saved in: $HOME/Pictures" && paplay "$HOME/Downloads/sci-fi-confirm.wav"'
 
 
 #
@@ -233,6 +234,6 @@ seat seat0 xcursor_theme Adwaita 30
 default_border none
 #for_window [class=".*"] border none
 
-exec waybar
+#exec waybar
 
 include /etc/sway/config.d/*

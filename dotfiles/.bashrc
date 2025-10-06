@@ -58,5 +58,11 @@ export PATH
 [ -f "$HOME/.user_func" ] && source "$HOME/.user_func"
 
 
-# Auto write by Atlas Build Manager
-export PATH="$PATH:/devenv/projects/Atlas_Build_Manager/build/bin/debug/atl"
+
+# >>> Atlas Build Manager >>>
+case ":$PATH:" in
+ *":/devenv/projects/Atlas_Build_Manager/build/bin/debug:"*) ;;
+ *) PATH="$PATH:/devenv/projects/Atlas_Build_Manager/build/bin/debug" ;;
+esac
+export PATH
+# <<< Atlas Build Manager <<<

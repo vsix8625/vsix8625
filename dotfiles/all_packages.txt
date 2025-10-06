@@ -27,11 +27,10 @@ grub
 gtk3
 gtk4
 htop
-hyprland
-hyprpaper
 imagemagick
 jdk-openjdk
 less
+libnotify
 libpulse
 libva-utils
 linux
@@ -64,9 +63,12 @@ qt5-wayland
 qt6-wayland
 ripgrep
 rofi-lbonn-wayland-git
+slurp
 strace
 sudo
+sway
 swaybg
+swayidle
 swaylock-effects
 sxiv
 texinfo
