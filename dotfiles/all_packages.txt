@@ -39,6 +39,7 @@ lld
 lldb
 ltrace
 lua
+lua-language-server
 luarocks
 mako
 man-db
@@ -88,7 +89,7 @@ waybar
 wireplumber
 wl-clipboard
 wlroots0.18
-xdg-desktop-portal-hyprland
+xdg-desktop-portal-wlr
 xdg-user-dirs
 xdg-utils
 xorg-xwayland

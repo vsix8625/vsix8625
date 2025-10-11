@@ -18,7 +18,7 @@ local function should_auto_complete()
 	return true
 end
 
--- Function to trigger auto-complete
+-- Function to trigger auto-suggestions
 local function auto_complete()
 	if not should_auto_complete() then
 		return
@@ -55,10 +55,28 @@ end
 
 -- Auto trigger on text change in insert mode
 vim.api.nvim_create_autocmd("TextChangedI", {
-	pattern = { "*.c", "*.cpp", "*.lua", "*.html", "*.bash", "*.py" },
+	pattern = { "*.c", "*.cpp", "*.html", "*.bash", "*.py" },
 	callback = function()
 		if should_auto_complete() then
 			auto_complete()
 		end
 	end,
+})
+
+local function show_suggestions()
+    local filetype = vim.bo.filetype
+    if filetype == "lua" then
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true), "n")
+    end
+end
+
+local timer = vim.loop.new_timer()
+vim.api.nvim_create_autocmd("TextChangedI", {
+    pattern = "*.lua",
+    callback = function()
+        timer:stop()
+        timer:start(50, 0, vim.schedule_wrap(function()
+            show_suggestions()
+        end))
+    end,
 })
