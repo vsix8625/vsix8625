@@ -84,7 +84,8 @@
         "tooltip": false
     },
     "memory": {
-        "format": "{}% "
+        "format": "{}% ",
+        "on-click": "setsid foot -e htop >/dev/null 2>&1"
     },
     "temperature": {
         // "thermal-zone": 2,

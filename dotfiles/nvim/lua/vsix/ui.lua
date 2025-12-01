@@ -31,7 +31,7 @@ local function get_lsp_diagnostics()
 	local warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
 	local info = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO })
 	local hints = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT })
-	local diagnostics = "S:"
+	local diagnostics = ""
 
 	vim.g.is_lsp_error = false
 
@@ -41,17 +41,17 @@ local function get_lsp_diagnostics()
 	end
 
 	if warnings > 0 then
-		diagnostics = diagnostics .. "(" .. "X" .. warnings .. ") "
+		diagnostics = "W:" .. "(" .. "X" .. warnings .. ") "
 		vim.g.is_lsp_error = true
 	end
 
 	if hints > 0 then
-		diagnostics = diagnostics .. "(H " .. hints .. ") "
+		diagnostics = "H:" .. "(H " .. hints .. ") "
 		vim.g.is_lsp_error = true
 	end
 
 	if info > 0 then
-		diagnostics = diagnostics .. "(I " .. info .. ") "
+		diagnostics = "I:" .. "(I " .. info .. ") "
 		vim.g.is_lsp_error = true
 	end
 
