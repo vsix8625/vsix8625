@@ -9,6 +9,7 @@ UseTab: Never
 ColumnLimit: 100
 ContinuationIndentWidth: 4
 
+
 BreakBeforeBraces: Allman
 BraceWrapping:
   AfterCaseLabel:        true  
@@ -25,21 +26,25 @@ DerivePointerAlignment: false
 
 AlignConsecutiveAssignments:
   Enabled: true
-  AcrossEmptyLines: false
-  AcrossComments: true
+  AcrossEmptyLines: false 
+  AcrossComments: false
   AlignCompound: true
   PadOperators: true
 AlignConsecutiveDeclarations:
   Enabled: true
-  AcrossEmptyLines: true
-  AcrossComments: false
+  AcrossEmptyLines: false
+  AcrossComments: false 
+AlignConsecutiveMacros:
+  Enabled: true
+  AcrossEmptyLines: false 
+  AcrossComments: false 
 
 AllowShortFunctionsOnASingleLine: None     
 AllowShortIfStatementsOnASingleLine: false  
 AllowShortBlocksOnASingleLine: false
 AllowShortCaseLabelsOnASingleLine: false
 AllowShortLoopsOnASingleLine: false
-AllowAllParametersOfDeclarationOnNextLine: true
+AllowAllParametersOfDeclarationOnNextLine: false
 
 SpaceBeforeParens: ControlStatements
 SpacesInParentheses: false
@@ -60,4 +65,5 @@ MaxEmptyLinesToKeep: 1
 KeepEmptyLinesAtTheStartOfBlocks: false
 SortIncludes: false  
 ---
+
 
