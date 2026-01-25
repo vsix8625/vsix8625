@@ -22,7 +22,8 @@ set $browser firefox
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg $HOME/Downloads/sportglide.jpg fill
+output * bg $HOME/Downloads/v7.png fill
+
 #
 # Example configuration:
 #
@@ -36,8 +37,8 @@ output * bg $HOME/Downloads/sportglide.jpg fill
 #
 exec swaylock -f -c 000000
 exec swayidle -w \
-          timeout 300 'swaylock -f -c 000000' \
-          timeout 600 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
+          timeout 600 'swaylock -f -c 000000' \
+          timeout 1200 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
           before-sleep 'swaylock -f -c 000000'
 
 #
@@ -157,7 +158,7 @@ exec $term
 
     # Switch the current container between different layout styles
     bindsym $mod+s layout stacking
-    bindsym $mod+w layout tabbed
+    #bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
 
     # Make the current focus fullscreen
