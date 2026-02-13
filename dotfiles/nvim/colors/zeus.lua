@@ -1,5 +1,4 @@
 ---@diagnostic disable: undefined-global
---- Copyright (C) Panayiotis Panteli "vsix" Oct 2024
 ----------------------------------------------------------------------------------------------------
 vim.cmd("hi clear")
 vim.g.colors_name = "zeus"

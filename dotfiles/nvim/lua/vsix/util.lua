@@ -1,52 +1,5 @@
 local M = {}
 
-----------------------------------------------------------------------------------------------------
-
-local function get_current_time()
-	return os.date("[%H:%M:%S]: ")
-end
-
-local function get_current_date()
-	return os.date("%d-%m-%Y")
-end
-
-local function write_to_log(message, mode)
-	local log_file = io.open("nvim_debug.log", mode)
-	if log_file then
-		log_file:write(get_current_time() .. " - " .. message .. "\n")
-		log_file:close()
-	end
-end
-
-function M.initialize_debug_log()
-	write_to_log(get_current_date() .. ": nvim_debug_mode", "w")
-end
-
-function M.debug_log(msg)
-	if vim.g.debug_mode then
-		write_to_log(msg, "a")
-	end
-end
-
-----------------------------------------------------------------------------------------------------
-
-function M.vsix_require(module)
-	M.debug_log("Loading: " .. module)
-	local success, error_msg = pcall(require, module)
-	if not success then
-		print("Error: " .. error_msg)
-		print("Error loading module: " .. module)
-	else
-		M.debug_log("Status: OK")
-	end
-end
-
-----------------------------------------------------------------------------------------------------
-
-local function is_file(path)
-	return vim.fn.filereadable(path) == 1
-end
-
 local function find_file_in_tree(filename)
 	local handle = io.popen("find . -type f -name '" .. filename .. "'")
 	if handle then

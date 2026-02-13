@@ -44,7 +44,6 @@ local opts = {
 for _, opt in ipairs(opts) do
 	local name, value = opt[1], opt[2]
 	vim.opt[name] = value
-	utils.debug_log(name .. " = " .. tostring(value))
 end
 
 

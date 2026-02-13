@@ -1,65 +1,41 @@
 local utils = require("vsix.util")
 
-vim.defer_fn(function()
-	local function set_keymap(key, action, mode)
-		vim.keymap.set(mode, key, action, { noremap = true, silent = true })
-	end
+local function map(mode, lhs, rhs, opts)
+	local options = { noremap = true, silent = true }
+	if opts then options = vim.tbl_extend("force", options, opts) end
+	vim.keymap.set(mode, lhs, rhs, options)
+end
 
-	local keymaps = {
-		{ "<Space>", "",                    "n" },
-		{ "<Esc>",   "<CMD>nohlsearch<CR>", "n" },
-		{ "<C-i>",   "<C-i>",               "n" },
-		{ "J",       ":m '>+1<cr>gv=gv",    "v" },
-		{ "K",       ":m '<-2<cr>gv=gv",    "v" },
+map("n", "<Esc>", "<CMD>nohlsearch<CR>")
+map("n", "<C-i>", "<C-i>")
+map("v", "J", ":m '>+1<cr>gv=gv")
+map("v", "K", ":m '<-2<cr>gv=gv")
 
-		{ ";", function()
-			vim.fn.setreg("/", "TODO")
-			vim.cmd("normal! n")
-		end, "n", },
-		{ ",", function()
-			vim.fn.setreg("/", "NOTE")
-			vim.cmd("normal! n")
-		end, "n", },
-		{ "<leader>w",         function() vim.cmd("w") end,                      "n", },
-		{ "<leader>ww",        function() vim.cmd("w!") end,                     "n", },
-		{ "<leader>so",        function() vim.cmd("so") end,                     "n", },
-		{ "<leader>lf",        function() vim.cmd("luafile %") end,              "n", },
-		{ "<F12>",             function() vim.cmd("wqa") end,                    "n", },
-		{ "<C-F12>",           function() vim.cmd("qa!") end,                    "n", },
+map("n", ";", function()
+	vim.fn.setreg("/", "TODO")
+	vim.cmd("normal! n")
+end)
 
-		-- copy whole file in clipboard
-		{ "<leader>cm",        function() vim.cmd("normal! gg^VG\"+y") end,      "n", },
-		-- copy selected lines in clipboard
-		{ "<C-c>",             function() vim.cmd("normal! \"+y") end,           "v", },
+map("n", ",", function()
+	vim.fn.setreg("/", "NOTE")
+	vim.cmd("normal! n")
+end)
 
-		-- buffers
-		{ "{",                 function() vim.cmd("bnext") end,                  "n", },
-		{ "}",                 function() vim.cmd("bp") end,                     "n", },
-		{ "<Home>",            function() vim.cmd("b1") end,                     "n", },
-		{ "<leader><leader>e", function() vim.cmd("ColorizerToggle") end,        "n", },
-		{ "<leader>ri",        function() vim.cmd("so " .. vim.env.MYVIMRC) end, "n", },
+map("n", "<leader>w", "<CMD>w<CR>")
+map("n", "<leader>ww", "<CMD>w!<CR>")
+map("n", "<F12>", "<CMD>wqa<CR>")
+map("n", "<C-F12>", "<CMD>qa!<CR>")
 
-		-- splits
-		{ "<C-h>",             "<C-w><C-h>",                                     "n", },
-		{ "<C-l>",             "<C-w><C-l>",                                     "n", },
-		{ "<C-j>",             "<C-w><C-j>",                                     "n", },
-		{ "<C-k>",             "<C-w><C-k>",                                     "n", },
-		{ "<leader><C-s>",     function() vim.cmd("V") end,                      "n", },
-		{ "<leader><C-a>",     function() vim.cmd("split") end,                  "n", },
+map("n", "<leader>cm", 'gg^VG"+y')
+map("v", "<C-c>", '"+y')
 
-
-
-		{ "<leader>[",         utils.switch_cfile,                               "n", },
-		{ "<leader>1", function()
-			utils.flterminal()
-		end, "n", },
-	}
-
-	utils.debug_log("[Keymaps]")
-	for _, key in ipairs(keymaps) do
-		set_keymap(key[1], key[2], key[3])
-		utils.debug_log("Key: " .. key[1] .. " - Mode: " .. key[3])
-
-		utils.debug_log("Type: " .. type(key[2]) .. " --> " .. tostring(key[2]))
-	end
-end, 2)
+map("n", "{", "<CMD>bnext<CR>")
+map("n", "}", "<CMD>bp<CR>")
+map("n", "<C-h>", "<C-w><C-h>")
+map("n", "<C-l>", "<C-w><C-l>")
+map("n", "<C-j>", "<C-w><C-j>")
+map("n", "<C-k>", "<C-w><C-k>")
+--
+-- Custom Utility Maps
+map("n", "<leader>[", utils.switch_cfile)
+map("n", "<leader>1", utils.flterminal)

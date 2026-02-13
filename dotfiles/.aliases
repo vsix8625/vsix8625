@@ -24,7 +24,7 @@ alias hdsize="du -sh ."
 
 alias cls="clear && ls"
 
-alias ll='ls -alFh --color=always'
+alias ll='ls -lhSr --color=always'
 alias la='ls -A'
 alias l='ls -CF'
 

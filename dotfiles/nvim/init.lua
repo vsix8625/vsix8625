@@ -1,14 +1,22 @@
-local utils = require("vsix.util")
+vim.g.mapleader          = " "
+vim.g.maplocalleader     = "\\"
 
--- the vsix_print function only prints output if
--- debug_mode global was set on launch
--- eg: nvim --cmd "lua vim.g.debug_mode = 1"
-if vim.g.debug_mode then
-	utils.initialize_debug_log()
-end
-utils.debug_log("Start of \"init.lua\"")
+vim.g.netrw_banner       = 0
+vim.g.netrw_browse_split = 0
+vim.g.netrw_mouse        = 2
 
-utils.vsix_require("vsix.globals")
+vim.g.show_theme_name    = true
+
+-----------------------------------------------------------
+
+require("vsix.opts")
+require("vsix.keymaps")
+
+vim.cmd("colo zeus")
+vim.g.CUSTOM_COLORSCHEME = 1
+
+local utils              = require("vsix.util")
+
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -17,25 +25,23 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
-utils.vsix_require("vsix.keymaps")
-utils.vsix_require("vsix.opts")
-
-
-local plugins_spec = {}
-
-utils.debug_log("Loading plugins")
-table.insert(plugins_spec, { import = "plugins.treesitter" })
-utils.debug_log("Plugin: treesitter OK")
-table.insert(plugins_spec, { import = "plugins.telescope" })
-utils.debug_log("Plugin: telescope OK")
-table.insert(plugins_spec, { import = "plugins.nvim-lspconfig" })
-utils.debug_log("Plugin: nvim-lspconfig OK")
---table.insert(plugins_spec, { import = "plugins.colorizer" })
-
-utils.debug_log("Setting up plugins: Lazy")
 require("lazy").setup({
-	spec = plugins_spec,
+	spec = {
+		{
+			import = "plugins.treesitter",
+			event = { "BufReadPre", "BufNewFile" }
+		},
+
+		{
+			import = "plugins.telescope",
+			cmd = "Telescope",
+		},
+
+		{
+			import = "plugins.nvim-lspconfig",
+			event = { "BufReadPre", "BufNewFile" },
+		},
+	},
 	checker = {
 		enabled   = false,
 		notify    = true,
@@ -56,55 +62,18 @@ require("lazy").setup({
 		}
 	},
 })
-utils.debug_log("Lazy done")
 
-------------------------------------------------------------------------------------------------------
 
-utils.debug_log("Initial \"init.lua\"")
-vim.api.nvim_create_autocmd("VimEnter", {
-	callback = function()
-		utils.debug_log("Loading colorscheme")
-		vim.cmd("colo zeus")
-		vim.g.CUSTOM_COLORSCHEME = 1
-		utils.debug_log("Set to: " .. vim.g.colors_name .. " Status: OK")
+local function load_module(mod)
+	local ok, m = pcall(require, mod)
+	if ok and m.load then m.load() end
+end
 
-		local success, menu = pcall(require, "vsix.menu")
-		utils.debug_log("Loading menu")
-		if success then
-			if vim.fn.argv(0) == "" then
-				menu.load()
-				utils.debug_log("Status: OK")
-			end
-		else
-			utils.debug_log("Error: " .. menu)
-		end
+load_module("vsix.ui")
+require("vsix.lspconf").load()
+require("vsix.autocmds")
+require("vsix.autocmp")
 
-		local ok, statusline = pcall(require, "vsix.ui")
-		utils.debug_log("Loading statusline")
-		if ok then
-			statusline.load()
-			utils.debug_log("Status: OK")
-		else
-			utils.debug_log("Error: " .. statusline)
-		end
-
-		utils.vsix_require("vsix.autocmds")
-		local ts_ok, ts = pcall(require, "plugins.treesitter")
-		utils.debug_log("Loading treestitter")
-		if ts_ok then
-			ts.config()
-		else
-			print("Error: " .. ts)
-			utils.debug_log("Error: " .. ts)
-		end
-
-		require("vsix.lspconf").load()
-
-		utils.vsix_require("vsix.autocmp")
-	end,
-})
-
-vim.defer_fn(function()
-	utils.debug_log("End of \"init.lua\"")
-end, 100)
-------------------------------------------------------------------------------------------------------
+if vim.fn.argv(0) == "" then
+	pcall(function() require("vsix.menu").load() end)
+end
