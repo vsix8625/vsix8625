@@ -1,12 +1,12 @@
 local M = {
 	"nvim-treesitter/nvim-treesitter",
 	--"nvim-treesitter/playground",
+	build = ":TSUpdate",
+	event = { "BufReadPost", "BufNewFile" },
 }
 
 function M.config()
 	require("nvim-treesitter.configs").setup({
-		build = ":TSUpdate",
-		event = { "BufReadPost", "BufNewFile" },
 		ensure_installed = {
 			"c",
 			"lua",
