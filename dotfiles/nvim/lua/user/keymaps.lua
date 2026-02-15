@@ -1,4 +1,4 @@
-local utils = require("vsix.util")
+local utils = require("user.util")
 
 local function map(mode, lhs, rhs, opts)
 	local options = { noremap = true, silent = true }

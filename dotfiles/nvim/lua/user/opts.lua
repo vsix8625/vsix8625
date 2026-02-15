@@ -1,4 +1,4 @@
-local utils = require("vsix.util")
+local utils = require("user.util")
 local opts = {
 	{ "swapfile",       false },
 	{ "guicursor",      "n-v-i-c:block-Cursor" },

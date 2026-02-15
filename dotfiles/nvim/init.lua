@@ -9,15 +9,15 @@ vim.g.show_theme_name    = true
 
 -----------------------------------------------------------
 
-require("vsix.opts")
-require("vsix.keymaps")
+require("user.opts")
+require("user.keymaps")
 
 vim.defer_fn(function()
 	vim.cmd("colo zeus")
 	vim.g.CUSTOM_COLORSCHEME = 1
 end, 0)
 
-local utils = require("vsix.util")
+local utils = require("user.util")
 
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -85,12 +85,12 @@ local function load_module(mod)
 end
 
 vim.defer_fn(function()
-	load_module("vsix.ui")
-	require("vsix.autocmds")
-	require("vsix.autocmp")
-	require("vsix.lspconf").load()
+	load_module("user.ui")
+	require("user.autocmds")
+	require("user.autocmp")
+	require("user.lspconf").load()
 
 	if vim.fn.argv(0) == "" then
-		pcall(function() require("vsix.menu").load() end)
+		pcall(function() require("user.menu").load() end)
 	end
 end, 0)
