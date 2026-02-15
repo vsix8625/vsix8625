@@ -35,7 +35,8 @@ map("n", "<C-h>", "<C-w><C-h>")
 map("n", "<C-l>", "<C-w><C-l>")
 map("n", "<C-j>", "<C-w><C-j>")
 map("n", "<C-k>", "<C-w><C-k>")
---
+
 -- Custom Utility Maps
 map("n", "<leader>[", utils.switch_cfile)
 map("n", "<leader>1", utils.flterminal)
+map("n", "<leader>km", utils.show_maps)

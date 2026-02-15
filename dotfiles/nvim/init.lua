@@ -86,9 +86,9 @@ end
 
 vim.defer_fn(function()
 	load_module("vsix.ui")
-	require("vsix.lspconf").load()
 	require("vsix.autocmds")
 	require("vsix.autocmp")
+	require("vsix.lspconf").load()
 
 	if vim.fn.argv(0) == "" then
 		pcall(function() require("vsix.menu").load() end)
