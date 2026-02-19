@@ -16,6 +16,8 @@ function M.config()
 			"bash",
 			"python",
 			"cpp",
+			"go",
+			"glsl",
 		},
 		highlight = {
 			enable = true,

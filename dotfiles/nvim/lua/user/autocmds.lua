@@ -59,3 +59,47 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 		vim.hl.on_yank({ higroup = "yanking", timeout = 80 })
 	end,
 })
+
+-- Monolith files
+local lith_group = vim.api.nvim_create_augroup("lith_files", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	group = lith_group,
+	pattern = "*.lith",
+	callback = function()
+		vim.bo.filetype = "monolith"
+
+		vim.cmd("syntax sync fromstart")
+		vim.cmd("setlocal syntax=c")
+
+		for _, client in pairs(vim.lsp.get_clients({ bufnr = 0 })) do
+			client:detach(0)
+		end
+
+		-- apply C-specific buffer settings manually
+		vim.opt_local.cindent = true
+		vim.opt_local.shiftwidth = 4
+		vim.opt_local.tabstop = 4
+		vim.opt_local.omnifunc = "ccomplete#Complete"
+	end,
+})
+
+local barrfile_group = vim.api.nvim_create_augroup("barrfiles", { clear = true })
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+	group = barrfile_group,
+	pattern = "Barrfile",
+	callback = function()
+		vim.bo.filetype = "Barrfile"
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = barrfile_group,
+	pattern = "Barrfile",
+	callback = function()
+		vim.bo.syntax = "bash"
+
+		vim.treesitter.start(0, "bash")
+	end,
+})

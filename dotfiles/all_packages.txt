@@ -2,13 +2,17 @@ Pacman Packages:
 alsa-lib
 amd-ucode
 android-studio
+android-tools
 base
 base-devel
 bat
 brightnessctl
+broot
 cloc
 cmake
-dolphin
+cpupower
+dmidecode
+docker
 dosfstools
 downgrade
 efibootmgr
@@ -21,6 +25,7 @@ fzf
 gdb
 git
 glew
+go
 greetd
 grim
 grub
@@ -30,13 +35,16 @@ htop
 imagemagick
 jdk-openjdk
 less
+libavif
 libnotify
 libpulse
 libva-utils
+libwebsockets
 linux
 linux-firmware
 lld
 lldb
+llvm
 ltrace
 lua
 lua-language-server
@@ -47,6 +55,7 @@ man-pages
 mesa
 mesa-demos
 mesa-utils
+mold
 mtools
 neovim
 network-manager-applet
@@ -60,10 +69,15 @@ pavucontrol
 perf
 pipewire
 pipewire-pulse
+python-matplotlib
+python-pip
+python-websockets
+qbe
 qt5-wayland
 qt6-wayland
 ripgrep
 rofi-lbonn-wayland-git
+rsync
 slurp
 strace
 sudo
@@ -73,6 +87,7 @@ swayidle
 swaylock-effects
 sxiv
 texinfo
+time
 tree
 ttf-fira-code
 ttf-jetbrains-mono-nerd
@@ -94,16 +109,8 @@ xdg-user-dirs
 xdg-utils
 xorg-xwayland
 yay
-yay-debug
+yazi
+yt-dlp
 zip
 
 AUR Packages:
-android-studio 2025.1.2.11-1
-downgrade 11.5.2-1
-phonon-qt6-mpv 0.1.0-3
-rofi-lbonn-wayland-git 1.7.9.wayland1.r0.g07955bf9-1
-rofi-lbonn-wayland-git-debug 1.7.9.wayland1.r0.g07955bf9-1
-swaylock-effects 1.7.0.0-4
-swaylock-effects-debug 1.7.0.0-4
-yay 12.5.0-1
-yay-debug 12.5.0-1

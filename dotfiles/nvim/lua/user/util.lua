@@ -1,35 +1,39 @@
 local M = {}
 
-local function find_file_in_tree(filename)
-	local handle = io.popen("find . -type f -name '" .. filename .. "'")
-	if handle then
-		local result = handle:read("*l")
-		handle:close()
+
+local function find_file_in_tree(target)
+	local cmd = string.format("find . -name '%s' -not -path '*/.*' | head -n 1", target)
+	local result = vim.fn.system(cmd):gsub("%s+", "")
+
+	if result ~= "" then
 		return result
 	end
 	return nil
 end
 
 function M.switch_cfile()
-	local file = vim.fn.expand("%:t:r") -- filename without extension
-	local ext = vim.fn.expand("%:e")
-	local target = ""
+	local file = vim.fn.expand("%:t:r")
+	local ext = vim.fn.expand("%:e"):lower()
+	local targets = {}
 
-	if ext == "c" then
-		target = file .. ".h"
+	if ext == "c" or ext == "cpp" or ext == "cc" then
+		targets = { file .. ".h", file .. ".hpp" }
 	elseif ext == "h" or ext == "hpp" then
-		target = file .. ".c"
+		targets = { file .. ".c", file .. ".cpp", file .. ".cc" }
 	else
-		print("Unsupported extension: " .. ext)
+		print("Not a C/C++ file: ." .. ext)
 		return
 	end
 
-	local found = find_file_in_tree(target)
-	if found then
-		vim.cmd("edit " .. found)
-	else
-		print("No matching file found for " .. target)
+	for _, target in ipairs(targets) do
+		local found = find_file_in_tree(target)
+		if found then
+			vim.cmd("edit " .. found)
+			return
+		end
 	end
+
+	print("Could not find a matching header/source for: " .. file)
 end
 
 ----------------------------------------------------------------------------------------------------

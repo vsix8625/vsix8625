@@ -33,8 +33,6 @@ local function auto_complete()
 	elseif filetype == "lua" then
 		local has_lsp = vim.bo.omnifunc == "v:lua.vim.lsp.omnifunc"
 		suggestion = has_lsp and OMNI or KEYWORD
-	elseif filetype == "python" then
-		suggestion = OMNI
 	elseif filetype == "html" or filetype == "css" or filetype == "sh" then
 		suggestion = KEYWORD
 	elseif filetype == "text" then
@@ -55,7 +53,7 @@ end
 
 -- Auto trigger on text change in insert mode
 vim.api.nvim_create_autocmd("TextChangedI", {
-	pattern = { "*.c", "*.cpp", "*.html", "*.bash", "*.py" },
+	pattern = { "*.c", "*.cpp" },
 	callback = function()
 		if should_auto_complete() then
 			auto_complete()
@@ -64,19 +62,19 @@ vim.api.nvim_create_autocmd("TextChangedI", {
 })
 
 local function show_suggestions()
-    local filetype = vim.bo.filetype
-    if filetype == "lua" then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true), "n")
-    end
+	local filetype = vim.bo.filetype
+	if filetype == "lua" then
+		vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-x><C-o>", true, false, true), "n")
+	end
 end
 
 local timer = vim.loop.new_timer()
 vim.api.nvim_create_autocmd("TextChangedI", {
-    pattern = "*.lua",
-    callback = function()
-        timer:stop()
-        timer:start(50, 0, vim.schedule_wrap(function()
-            show_suggestions()
-        end))
-    end,
+	pattern = "*.lua",
+	callback = function()
+		timer:stop()
+		timer:start(50, 0, vim.schedule_wrap(function()
+			show_suggestions()
+		end))
+	end,
 })
