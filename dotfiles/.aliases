@@ -5,8 +5,6 @@ alias ebpr="$EDITOR $HOME/.bash_profile"
 alias esway="$EDITOR $HOME/.config/sway/config"
 alias egrub="sudo $EDITOR /etc/default/grub"
 
-alias gdenv="cd $DEVENV"
-
 alias fox="firefox & disown"
 alias ff="fastfetch"
 alias v="nvim"
