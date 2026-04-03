@@ -61,8 +61,6 @@ exec foot --server
 
     # Start browser
     bindsym $mod+x exec $browser
-    #bindsym $mod+y exec foot yazi
-	bindsym $mod+y exec foot --app-id=yazi yazi
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -147,7 +145,6 @@ exec foot --server
     #bindsym $mod+w layout tabbed
     bindsym $mod+e layout toggle split
 
-for_window [app_id="yazi"] floating enable, resize set 1200 800
 
     # Make the current focus fullscreen
     bindsym $mod+f fullscreen

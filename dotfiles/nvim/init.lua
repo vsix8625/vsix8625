@@ -9,16 +9,10 @@ vim.g.show_theme_name    = true
 
 -----------------------------------------------------------
 
-require("user.opts")
-require("user.keymaps")
-
-vim.defer_fn(function()
-	vim.cmd("colo zeus")
-	vim.g.CUSTOM_COLORSCHEME = 1
-end, 0)
+vim.cmd("colo zeus")
+vim.g.CUSTOM_COLORSCHEME = 1
 
 local utils = require("user.util")
-
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -29,13 +23,12 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
 	spec = {
-		{
-			import = "plugins.treesitter",
+		{ import = "plugins.treesitter",
 		},
 
-		{
-			import = "plugins.telescope",
-		},
+		-- {
+		-- 	import = "plugins.telescope",
+		-- },
 
 		{
 			import = "plugins.nvim-lspconfig",
@@ -84,13 +77,10 @@ local function load_module(mod)
 	if ok and m.load then m.load() end
 end
 
+require("user.autocmds")
+
 vim.defer_fn(function()
 	load_module("user.ui")
-	require("user.autocmds")
 	require("user.autocmp")
 	require("user.lspconf").load()
-
-	if vim.fn.argv(0) == "" then
-		pcall(function() require("user.menu").load() end)
-	end
 end, 0)

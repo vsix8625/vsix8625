@@ -2,11 +2,11 @@ vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "*" },
 	callback = function()
 		if vim.bo.filetype ~= "homepage" and vim.bo.filetype ~= "TelescopeResults" then
-			vim.opt.number = true
-			vim.opt.relativenumber = true
+			vim.opt_local.number = true
+			vim.opt_local.relativenumber = true
 		else
-			vim.opt.number = false
-			vim.opt.relativenumber = false
+			vim.opt_local.number = false
+			vim.opt_local.relativenumber = false
 		end
 	end,
 })
@@ -84,22 +84,10 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	end,
 })
 
-local barrfile_group = vim.api.nvim_create_augroup("barrfiles", { clear = true })
-
-vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
-	group = barrfile_group,
-	pattern = "Barrfile",
-	callback = function()
-		vim.bo.filetype = "Barrfile"
-	end,
+vim.filetype.add({
+	filename = {
+		["Barrfile"] = "barrfile",
+	},
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-	group = barrfile_group,
-	pattern = "Barrfile",
-	callback = function()
-		vim.bo.syntax = "bash"
-
-		vim.treesitter.start(0, "bash")
-	end,
-})
+vim.treesitter.language.register("bash", "barrfile")
