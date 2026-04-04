@@ -1,39 +1,93 @@
 local M = {}
 
 local function find_file_in_tree(target)
-	local cmd = string.format("find . -name '%s' -not -path '*/.*' | head -n 1", target)
-	local result = vim.fn.system(cmd):gsub("%s+", "")
+	local current_file_path = vim.fn.expand("%:p")
+	local current_dir = vim.fn.expand("%:p:h")
 
-	if result ~= "" then
-		return result
-	end
-	return nil
-end
-
-function M.switch_cfile()
-	local file = vim.fn.expand("%:t:r")
-	local ext = vim.fn.expand("%:e"):lower()
-	local targets = {}
-
-	if ext == "c" or ext == "cpp" or ext == "cc" then
-		targets = { file .. ".h", file .. ".hpp" }
-	elseif ext == "h" or ext == "hpp" then
-		targets = { file .. ".c", file .. ".cpp", file .. ".cc" }
-	else
-		print("Not a C/C++ file: ." .. ext)
-		return
+	local same_dir_check = current_dir .. "/" .. target
+	if vim.fn.filereadable(same_dir_check) == 1 then
+		return same_dir_check
 	end
 
-	for _, target in ipairs(targets) do
-		local found = find_file_in_tree(target)
-		if found then
-			vim.cmd("edit " .. found)
-			return
+	local parent_dir = vim.fn.fnamemodify(current_dir, ":h")
+	local common_dirs = { "include", "inc", "src", "source", "include/" .. vim.fn.fnamemodify(parent_dir, ":t") }
+
+	for _, dir in ipairs(common_dirs) do
+		local path = parent_dir .. "/" .. dir .. "/" .. target
+		if vim.fn.filereadable(path) == 1 then
+			return path
 		end
 	end
 
-	print("Could not find a matching header/source for: " .. file)
+	local root = vim.fs.find({ '.git', 'Makefile', 'CMakeLists.txt', 'Barrfile' }, {
+		path = current_dir,
+		upward = true
+	})[1]
+
+	local search_base = root and vim.fn.fnamemodify(root, ":h") or current_dir
+	local cmd = string.format("find %s -name '%s' -not -path '*/.*' -not -path '*/build/*' | head -n 1", search_base,
+		target)
+	local result = vim.fn.system(cmd):gsub("%s+", "")
+
+	return result ~= "" and result or nil
 end
+
+function M.switch_cfile()
+	local bufnr = vim.api.nvim_get_current_buf()
+	local params = { uri = vim.uri_from_bufnr(bufnr) }
+
+	vim.lsp.buf_request(bufnr, 'textDocument/switchSourceHeader', params, function(err, result)
+		if result and result ~= "" then
+			vim.api.nvim_command('edit ' .. vim.uri_to_fname(result))
+			return
+		end
+
+		local file = vim.fn.expand("%:t:r")
+		local ext = vim.fn.expand("%:e"):lower()
+		local targets = {}
+
+		if ext == "c" or ext == "cpp" or ext == "cc" then
+			targets = { file .. ".h", file .. ".hpp" }
+		elseif ext == "h" or ext == "hpp" then
+			targets = { file .. ".c", file .. ".cpp", file .. ".cc" }
+		end
+
+		for _, target in ipairs(targets) do
+			local found = find_file_in_tree(target)
+			if found then
+				vim.cmd("edit " .. found)
+				return
+			end
+		end
+
+		print("Could not find match for " .. file)
+	end)
+end
+
+-- function M.switch_cfile()
+-- 	local file = vim.fn.expand("%:t:r")
+-- 	local ext = vim.fn.expand("%:e"):lower()
+-- 	local targets = {}
+--
+-- 	if ext == "c" or ext == "cpp" or ext == "cc" then
+-- 		targets = { file .. ".h", file .. ".hpp" }
+-- 	elseif ext == "h" or ext == "hpp" then
+-- 		targets = { file .. ".c", file .. ".cpp", file .. ".cc" }
+-- 	else
+-- 		print("Not a C/C++ file: ." .. ext)
+-- 		return
+-- 	end
+--
+-- 	for _, target in ipairs(targets) do
+-- 		local found = find_file_in_tree(target)
+-- 		if found then
+-- 			vim.cmd("edit " .. found)
+-- 			return
+-- 		end
+-- 	end
+--
+-- 	print("Could not find a matching header/source for: " .. file)
+-- end
 
 ----------------------------------------------------------------------------------------------------
 
@@ -150,65 +204,6 @@ function M.show_maps()
 	end, { buffer = buf, nowait = true, silent = true })
 end
 
-local opts = {
-	{ "swapfile",       false },
-	{ "guicursor",      "n-v-i-c:block-Cursor" },
-	{ "completeopt",    "menu,menuone,noselect" },
-	{ "pumheight",      15 },
-	{ "pumwidth",       35 },
-	{ "pumblend",       8 },
-	{ "laststatus",     3 },
-	{ "termguicolors",  true },
-	{ "number",         false },
-	{ "relativenumber", false },
-	{ "scrolloff",      8 },
-	{ "hlsearch",       true },
-	{ "incsearch",      true },
-	{ "showcmd",        false },
-	{ "showfulltag",    true },
-	{ "updatetime",     50 },
-	{ "timeoutlen",     300 },
-	{ "conceallevel",   0 },
-	{ "mouse",          "a" },
-	{ "showtabline",    1 },
-	{ "ignorecase",     true },
-	{ "smartcase",      true },
-	{ "showmode",       false },
-	{ "splitbelow",     true },
-	{ "splitright",     true },
-	{ "signcolumn",     "yes" },
-	{ "undofile",       true },
-	{ "inccommand",     "split" },
-	{ "writebackup",    false },
-	{ "smartindent",    true },
-	{ "expandtab",      false },
-	{ "shiftwidth",     4 },
-	{ "tabstop",        4 },
-	{ "softtabstop",    2 },
-	{ "numberwidth",    2 },
-	{ "cursorline",     true },
-	{ "spelllang",      "en_us" },
-	{ "cmdheight",      0 },
-	{ "scrolljump",     1 },
-}
-
-for _, opt in ipairs(opts) do
-	local name, value = opt[1], opt[2]
-	vim.opt[name] = value
-end
-
-vim.opt.ruler = true
-vim.opt.spell = true
-vim.opt.wrap = false
-vim.opt.encoding = "utf-8"
-vim.opt.fileencoding = "utf-8"
-vim.opt.spelllang = "en_us"
-vim.opt.winblend = 5
-vim.opt.shortmess:append 'c'
-vim.opt.shortmess:append 'a'
-vim.opt.shortmess:append 'I'
-vim.opt.matchpairs:append "<:>"
-
 local function map(mode, lhs, rhs, opts)
 	local options = { noremap = true, silent = true }
 	if opts then options = vim.tbl_extend("force", options, opts) end
@@ -250,7 +245,6 @@ map("n", "<leader>[", M.switch_cfile)
 map("n", "<leader>1", M.flterminal)
 map("n", "<leader>km", M.show_maps)
 
-map("n", "<leader><leader>p", function() vim.cmd("Lazy profile") end)
-map("n", "<leader><leader>l", function() vim.cmd("Lazy update") end)
+map("n", "<leader><leader>i", function() vim.cmd("Inspect") end)
 
 return M

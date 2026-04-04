@@ -1,19 +1,4 @@
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "*" },
-	callback = function()
-		if vim.bo.filetype ~= "homepage" and vim.bo.filetype ~= "TelescopeResults" then
-			vim.opt_local.number = true
-			vim.opt_local.relativenumber = true
-		else
-			vim.opt_local.number = false
-			vim.opt_local.relativenumber = false
-		end
-	end,
-})
-
-------------------------------------------------------------------------------------------------------
-
-vim.api.nvim_create_autocmd("FileType", {
 	pattern = { "c", "h", "cpp", "hpp" },
 	callback = function()
 		vim.api.nvim_set_option_value("omnifunc", "ccomplete#Complete", { buf = 0 })
@@ -86,8 +71,6 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 
 vim.filetype.add({
 	filename = {
-		["Barrfile"] = "barrfile",
+		["Barrfile"] = "sh",
 	},
 })
-
-vim.treesitter.language.register("bash", "barrfile")

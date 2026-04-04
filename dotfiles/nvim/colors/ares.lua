@@ -1,47 +1,53 @@
----@diagnostic disable: undefined-global
+--@diagnostic disable: undefined-global
 ----------------------------------------------------------------------------------------------------
 vim.cmd("hi clear")
-vim.g.colors_name = "zeus"
+vim.g.colors_name = "ares"
 local hi = function(name, val)
 	val.cterm = val.cterm or {}
 	vim.api.nvim_set_hl(0, name, val)
 end
 
 local background = "#111111"
-local foreground = "#5995b4"
+local foreground = "#BFC6C4"
 
-local comment = "#39434f"
+local comment = "#2e2e2e"
 local error_fg = "#000000"
 local error_bg = "#ff3500"
 
 hi("Normal", { bg = background, fg = foreground })
-hi("Cursor", { bg = "#11f4b1" })
-hi("String", { fg = "#ffffff" })
+hi("Cursor", { bg = "#E6501B" })
+-- hi("String", { fg = "#0C7779" })
+hi("String", { fg = "#8B7355" })
 hi("Character", { link = "Special" })
 hi("Number", { fg = "#B66149" })
 hi("Float", { link = "Number" })
 hi("Boolean", { fg = "#A45B5E", bold = true })
-hi("Constant", { fg = "#008888", bold = true })
+hi("Constant", { fg = "#C14D30", bold = true })
 hi("Identifier", { fg = "#00af74" })
-hi("Keyword", { fg = "#004444", bold = true })
-hi("Operator", { fg = "#a9c5f4" })
-hi("Special", { fg = "#0584D2", bold = true })
+hi("Keyword", { fg = "#813405", bold = true })
+hi("Operator", { fg = "#CC561E" })
+hi("Special", { fg = "#C14D30", bold = true })
 hi("Delimiter", { link = "Operator" })
-hi("Type", { fg = "#0074af", bold = true })
-hi("Function", { fg = "#16406D", bold = true })
+hi("Type", { fg = "#D53E0F", bold = true })
+hi("Function", { fg = "#E76F2E", bold = true })
+hi("Variable", { fg = "#6E5034", bold = true })
 hi("Label", { link = "Statement" })
-hi("MsgArea", { fg = "#22aaff" })
-hi("Search", { bg = "#00ffff", fg = "#ffffff" })
+hi("MsgArea", { fg = foreground })
+
+hi("Visual", { fg = "#C40C0C", bg = "#FF6500", bold = true })
+hi("Search", { link = "Visual" })
 hi("Substitute", { bg = "#ffffff", fg = "#000000" })
 hi("IncSearch", { bg = "#ffffff", fg = "#000000" })
 hi("CurSearch", { link = "IncSearch" })
-hi("Visual", { fg = "#000000", bg = "#00ffff", bold = true })
 hi("hlsearch", { link = "Visual" })
-hi("Macro", { fg = "#70f4ff" })
+
+hi("Macro", { fg = "#C14D30", bold = true })
 hi("Added", { fg = "#777777" })
 hi("Changed", { fg = "#999999" })
 hi("Removed", { fg = "#F11122" })
-hi("yanking", { bg = "#119599" })
+hi("yanking", { bg = foreground })
+hi("TODO", { bg = "#D53E0F" })
+hi("Comment", { fg = comment })
 
 hi("Title", { fg = "#118599" })
 hi("TelescopeBorder", { fg = foreground, bg = background })
@@ -53,19 +59,43 @@ hi("LineNr", { bg = background, fg = "#29332f" })
 
 hi("cTypedef", { link = "Identifier" })
 hi("cStructure", { link = "Special" })
+hi("cParen", { fg = "#C08552", bold = true })
+hi("cBracket", { link = "Operator", bold = true })
+hi("cBlock", { link = "cParen" })
+hi("cFormat", { link = "Variable" })
 hi("cDefine", { link = "PreProc" })
 
 --hi("LineNrAbove", {})
 --hi("LineNrBelow", {})
 
+hi("@lsp.type.c", { link = "Type" })
+hi("@lsp.type.macro.c", { link = "Macro" })
+hi("@lsp.type.parameter.c", { link = "Variable" })
+hi("@lsp.type.function.c", { link = "Function" })
+hi("@lsp.type.variable.c", { link = "Variable" })
+hi("@lsp.type.bracket.c", { fg = "#C08552" })
+hi("@lsp.type.property.c", { fg = "#9c6615" })
+hi("@lsp.type.label.c", { link = "Label" })
 
-hi("PreProc", { fg = "#5995f4" })
-hi("cInclude", { link = "Keyword" })
+hi("@lsp.type.punctuation.c", { link = "Operator" })
+hi("@lsp.typemod.punctuation.c", { link = "Operator" })
+hi("@lsp.type.operator.c", { link = "Operator" })
+hi("@lsp.typemod.operator.c", { link = "Operator" })
+
+hi("PreProc", { fg = "#E87F24" })
+hi("cInclude", { link = "PreProc" })
+hi("cConstant", { link = "cInclude" })
+hi("@variable", { link = "Variable" })
+
+hi("@spell.markdown", { link = "Spell" })
+hi("@markup.heading.3.markdown", { link = "Keyword" })
+hi("@markup.heading.3.markdown", { link = "Keyword" })
+hi("@markup.raw.block.markdown", { link = "String" })
+
 hi("Typedef", { link = "Special" })
 hi("Statement", { link = "Keyword" })
-hi("Structure", { link = "PreProc" })
+hi("Structure", { link = "Typedef" })
 
-hi("@variable", { link = "PreProc" })
 
 hi("PmenuSel", { link = "Visual" })
 hi("PmenuExtra", { link = "Visual" })
@@ -96,10 +126,6 @@ hi("FloatTitle", { link = "Title" })
 hi("WinSeparator", { link = "Identifier" })
 hi("NormalNC", {})
 hi("RedrawDebugNormal", { reverse = true })
-hi("TelescopeNormal", { link = "Normal" })
-hi("TelescopePreviewNormal", { link = "Normal" })
-hi("TelescopePromptNormal", { link = "Normal" })
-hi("TelescopeResultsNormal", { link = "Normal" })
 
 hi("NvimInvalidString", { link = "Error" })
 hi("NvimInvalidStringBody", { link = "Underlined" })
@@ -139,7 +165,7 @@ hi("DiagnosticUnderlineHint", {})
 hi("DiagnosticUnderlineInfo", {})
 hi("DiagnosticUnderlineOk", {})
 hi("DiagnosticUnderlineWarn", {})
-hi("DiagnosticUnnecessary", { link = "Normal" })
+hi("DiagnosticUnnecessary", { link = "Comment" })
 hi("DiagnosticVirtualTextError", { link = "Error" })
 hi("DiagnosticVirtualTextHint", { link = "Comment" })
 hi("DiagnosticVirtualTextInfo", { link = "Comment" })
