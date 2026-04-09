@@ -1,9 +1,14 @@
+-- C/Cpp specific settings in ./ftplugin/
+vim.loader.enable()
+
 vim.g.mapleader      = " "
 vim.g.maplocalleader = "\\"
 
 --vim.cmd("colo ares")
-vim.cmd("colo zeus")
-vim.g.CUSTOM_COLORSCHEME = 1
+vim.defer_fn(function()
+	vim.cmd("colo zeus")
+	vim.g.CUSTOM_COLORSCHEME = 1
+end, 0)
 
 vim.g.netrw_banner       = 0
 vim.g.netrw_browse_split = 0
@@ -24,6 +29,8 @@ vim.opt.shortmess:append 'c'
 vim.opt.shortmess:append 'a'
 vim.opt.shortmess:append 'I'
 vim.opt.matchpairs:append "<:>"
+vim.opt.winborder = "rounded"
+
 
 local opts = {
 	{ "swapfile",       false },
@@ -94,10 +101,11 @@ vim.g.loaded_rrhelper         = 1
 vim.g.loaded_spellfile_plugin = 1
 vim.g.loaded_vimball          = 1
 vim.g.loaded_vimballPlugin    = 1
-
-vim.cmd("syntax on")
+vim.g.do_filetype_lua         = 1
 
 vim.cmd("packadd! nvim.undotree")
+
+vim.opt.runtimepath:append("/usr/lib/tree-sitter")
 
 local function load_module(mod)
 	local ok, m = pcall(require, mod)

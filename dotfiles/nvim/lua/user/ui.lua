@@ -1,6 +1,5 @@
 local M = {}
 
-
 local api = vim.api
 local hl = api.nvim_set_hl
 
@@ -110,9 +109,9 @@ function MyWinbar()
 	----------------------------------------------------------------------------------------------------
 
 	if is_changed then
-		winbar = "%#errormsg#" .. " %F " ..
-			"%=Diagnostics: " .. get_lsp_diagnostics()
+		winbar = "%#errormsg#" .. " %F "
 	end
+
 	----------------------------------------------------------------------------------------------------
 
 	if vim.bo.filetype == "homepage" then
