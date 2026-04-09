@@ -97,6 +97,8 @@ vim.g.loaded_vimballPlugin    = 1
 
 vim.cmd("syntax on")
 
+vim.cmd("packadd! nvim.undotree")
+
 local function load_module(mod)
 	local ok, m = pcall(require, mod)
 	if ok and m.load then m.load() end
@@ -109,4 +111,3 @@ vim.defer_fn(function()
 	require("user.autocmp")
 	require("user.lspconf").load()
 end, 0)
-

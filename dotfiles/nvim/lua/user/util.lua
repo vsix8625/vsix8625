@@ -233,6 +233,11 @@ map("n", "<C-F12>", "<CMD>qa!<CR>")
 map("n", "<leader>cm", 'gg^VG"+y')
 map("v", "<C-c>", '"+y')
 
+
+map("n", "U", function()
+	vim.cmd("Undotree")
+end)
+
 map("n", "{", "<CMD>bnext<CR>")
 map("n", "}", "<CMD>bp<CR>")
 map("n", "<C-h>", "<C-w><C-h>")

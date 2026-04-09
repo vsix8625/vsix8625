@@ -12,7 +12,7 @@ local foreground = "#BFC6C4"
 
 local comment = "#2e2e2e"
 local error_fg = "#000000"
-local error_bg = "#ff3500"
+local error_bg = "#7D1414"
 
 hi("Normal", { bg = background, fg = foreground })
 hi("Cursor", { bg = "#E6501B" })
@@ -23,12 +23,12 @@ hi("Number", { fg = "#B66149" })
 hi("Float", { link = "Number" })
 hi("Boolean", { fg = "#A45B5E", bold = true })
 hi("Constant", { fg = "#C14D30", bold = true })
-hi("Identifier", { fg = "#00af74" })
+hi("Identifier", { fg = "#7D1414" })
 hi("Keyword", { fg = "#813405", bold = true })
 hi("Operator", { fg = "#CC561E" })
 hi("Special", { fg = "#C14D30", bold = true })
 hi("Delimiter", { link = "Operator" })
-hi("Type", { fg = "#D53E0F", bold = true })
+hi("Type", { fg = "#A45B5E", bold = true })
 hi("Function", { fg = "#E76F2E", bold = true })
 hi("Variable", { fg = "#6E5034", bold = true })
 hi("Label", { link = "Statement" })
@@ -76,6 +76,7 @@ hi("@lsp.type.variable.c", { link = "Variable" })
 hi("@lsp.type.bracket.c", { fg = "#C08552" })
 hi("@lsp.type.property.c", { fg = "#9c6615" })
 hi("@lsp.type.label.c", { link = "Label" })
+hi("@lsp.type.unknown.cpp", { link = "Comment" })
 
 hi("@lsp.type.punctuation.c", { link = "Operator" })
 hi("@lsp.typemod.punctuation.c", { link = "Operator" })
@@ -106,7 +107,7 @@ hi("PmenuSbar", { link = "CursorLine" })
 hi("PmenuThumb", { link = "Boolean" })
 
 --error msgs and warnings
-hi("Underlined", { underline = true, fg = error_bg })
+hi("Underlined", { undercurl = true, sp = error_bg, fg = comment })
 hi("DiagnosticError", { bg = error_bg, fg = error_fg, bold = true })
 hi("Error", { bg = "#9F0e21", fg = "#0f0f0f" })
 hi("ErrorMsg", { bg = "#9F0e21", fg = "#0f0f0f", bold = true })

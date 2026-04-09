@@ -27,8 +27,8 @@ function M.load()
 
 			buf_set_keymap("n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<cr>", opts)
 			buf_set_keymap("n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<cr>", opts)
-			buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.goto_prev()<cr>", opts)
-			buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.goto_next()<cr>", opts)
+			buf_set_keymap("n", "[d", "<cmd>lua vim.diagnostic.jump({count = -1, float = true })<cr>", opts)
+			buf_set_keymap("n", "]d", "<cmd>lua vim.diagnostic.jump({count = 1, float = true })<cr>", opts)
 			buf_set_keymap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>", opts)
 
 			buf_set_keymap("n", "<leader>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<cr>",
