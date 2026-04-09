@@ -1,7 +1,6 @@
 local M = {}
 
-local function find_file_in_tree(target)
-	local current_file_path = vim.fn.expand("%:p")
+local function find_file_in_tree(target, base_name)
 	local current_dir = vim.fn.expand("%:p:h")
 
 	local same_dir_check = current_dir .. "/" .. target
@@ -10,7 +9,7 @@ local function find_file_in_tree(target)
 	end
 
 	local parent_dir = vim.fn.fnamemodify(current_dir, ":h")
-	local common_dirs = { "include", "inc", "src", "source", "include/" .. vim.fn.fnamemodify(parent_dir, ":t") }
+	local common_dirs = { "src", "source", "include", "inc" }
 
 	for _, dir in ipairs(common_dirs) do
 		local path = parent_dir .. "/" .. dir .. "/" .. target
@@ -19,17 +18,22 @@ local function find_file_in_tree(target)
 		end
 	end
 
-	local root = vim.fs.find({ '.git', 'Makefile', 'CMakeLists.txt', 'Barrfile' }, {
-		path = current_dir,
-		upward = true
-	})[1]
+	local root_markers = { '.git', 'Makefile', 'CMakeLists.txt', 'Barrfile' }
+	local root_match = vim.fs.find(root_markers, { path = current_dir, upward = true })[1]
+	local search_base = root_match and vim.fn.fnamemodify(root_match, ":h") or current_dir
 
-	local search_base = root and vim.fn.fnamemodify(root, ":h") or current_dir
-	local cmd = string.format("find %s -name '%s' -not -path '*/.*' -not -path '*/build/*' | head -n 1", search_base,
-		target)
-	local result = vim.fn.system(cmd):gsub("%s+", "")
+	local target_ext = target:match("^.+(%..+)$") or ""
 
-	return result ~= "" and result or nil
+	local prefix_cmd = string.format("find %s -type f -name '%s*%s' -not -path '*/.*' -not -path '*/build/*'",
+		search_base, base_name, target_ext)
+
+	local results = vim.fn.systemlist(prefix_cmd)
+
+	if #results > 0 then
+		return results[1]
+	end
+
+	return nil
 end
 
 function M.switch_cfile()
@@ -38,22 +42,26 @@ function M.switch_cfile()
 
 	vim.lsp.buf_request(bufnr, 'textDocument/switchSourceHeader', params, function(err, result)
 		if result and result ~= "" then
-			vim.api.nvim_command('edit ' .. vim.uri_to_fname(result))
-			return
+			local fname = vim.uri_to_fname(result)
+			if vim.fn.filereadable(fname) == 1 then
+				vim.api.nvim_command('edit ' .. fname)
+				return
+			end
 		end
 
-		local file = vim.fn.expand("%:t:r")
+		local file = vim.fn.expand("%:t:r") -- e.g., "my_io"
 		local ext = vim.fn.expand("%:e"):lower()
 		local targets = {}
 
+		local seek_exts = {}
 		if ext == "c" or ext == "cpp" or ext == "cc" then
-			targets = { file .. ".h", file .. ".hpp" }
+			seek_exts = { "h", "hpp" }
 		elseif ext == "h" or ext == "hpp" then
-			targets = { file .. ".c", file .. ".cpp", file .. ".cc" }
+			seek_exts = { "c", "cpp", "cc" }
 		end
 
-		for _, target in ipairs(targets) do
-			local found = find_file_in_tree(target)
+		for _, s_ext in ipairs(seek_exts) do
+			local found = find_file_in_tree(file .. "." .. s_ext, file)
 			if found then
 				vim.cmd("edit " .. found)
 				return

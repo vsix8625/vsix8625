@@ -20,44 +20,48 @@ end
 
 -- Function to trigger auto-suggestions
 local function auto_complete()
-	if not should_auto_complete() then
+	if not should_auto_complete() or vim.fn.pumvisible() == 1 then
 		return
 	end
 
 	local suggestion
 	local filetype = vim.bo.filetype
+	local omni = vim.bo.omnifunc
+
+	local has_lsp = omni == "v:lua.vim.lsp.omnifunc"
 
 	if filetype == "c" or filetype == "cpp" then
-		local has_lsp = vim.bo.omnifunc == "v:lua.vim.lsp.omnifunc"
-		suggestion = has_lsp and OMNI or KEYWORD
+		suggestion = (has_lsp or omni ~= "") and "<C-x><C-o>" or "<C-n>"
 	elseif filetype == "lua" then
-		local has_lsp = vim.bo.omnifunc == "v:lua.vim.lsp.omnifunc"
-		suggestion = has_lsp and OMNI or KEYWORD
+		suggestion = has_lsp and "<C-x><C-o>" or "<C-n>"
 	elseif filetype == "html" or filetype == "css" or filetype == "sh" then
-		suggestion = KEYWORD
+		suggestion = "<C-n>"
 	elseif filetype == "text" then
 		suggestion = " "
 	else
-		suggestion = KEYWORD
+		suggestion = "<C-n>"
 	end
 
-	local keys = vim.api.nvim_replace_termcodes(
-		suggestion == OMNI and "<C-x><C-o>" or "<C-n>", true, false, true
-	)
-
-	local success, error = pcall(vim.api.nvim_feedkeys, keys, 'i', false)
-	if not success then
-		print("Error: ", error)
-	end
+	local keys = vim.api.nvim_replace_termcodes(suggestion, true, false, true)
+	-- 'n' flag prevents recursive mapping issues
+	vim.api.nvim_feedkeys(keys, 'n', false)
 end
 
--- Auto trigger on text change in insert mode
+local c_timer = vim.loop.new_timer()
 vim.api.nvim_create_autocmd("TextChangedI", {
 	pattern = { "*.c", "*.cpp" },
 	callback = function()
-		if should_auto_complete() then
-			auto_complete()
+		if not c_timer then
+			c_timer = vim.loop.new_timer()
 		end
+
+		pcall(function() c_timer:stop() end)
+
+		c_timer:start(150, 0, vim.schedule_wrap(function()
+			if vim.api.nvim_get_mode().mode == 'i' then
+				auto_complete()
+			end
+		end))
 	end,
 })
 

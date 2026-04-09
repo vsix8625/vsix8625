@@ -1,28 +1,3 @@
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = { "c", "h", "cpp", "hpp" },
-	callback = function()
-		vim.api.nvim_set_option_value("omnifunc", "ccomplete#Complete", { buf = 0 })
-		vim.api.nvim_set_option_value("cindent", true, { buf = 0 })
-		vim.api.nvim_set_option_value("shiftwidth", 4, { buf = 0 })
-		vim.api.nvim_set_option_value("tabstop", 4, { buf = 0 })
-
-		vim.opt_local.spell = false
-
-		vim.keymap.set('i', '<C-f>', function()
-			local line = vim.api.nvim_get_current_line()
-			local col = vim.api.nvim_win_get_cursor(0)[2]
-
-			local before = line:sub(1, col)
-			if before:match("%.$") then
-				vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<BS>->", true, false, true), "n", false)
-			else
-				vim.cmd([[normal! F.s->]])
-				vim.cmd([[startinsert]])
-			end
-		end)
-	end,
-})
-
 vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 	pattern = "*.h",
 	command = "set filetype=c",
@@ -32,9 +7,14 @@ vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
 ------------------------------------------------------------------------------------------------------
 
 vim.api.nvim_create_autocmd("FileType", {
-	pattern = "*",
 	callback = function()
-		pcall(vim.treesitter.start)
+		local success = pcall(vim.treesitter.start)
+
+		if success then
+			vim.bo.syntax = 'off'
+		else
+			vim.bo.syntax = 'on'
+		end
 	end,
 })
 

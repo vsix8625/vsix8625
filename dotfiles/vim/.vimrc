@@ -24,6 +24,11 @@ set number
 set relativenumber
 set laststatus=2
 
+set statusline=%f\ %m%r%h%w\ %=[%l,%c]\ [%L]\ %y
+
+set ttyfast
+set lazyredraw
+
 nnoremap Y y$
 nnoremap <leader>w :w<CR>
 nnoremap <F12> :wq<CR>

@@ -3,6 +3,7 @@ Language: Cpp
 BasedOnStyle: LLVM
 
 # Core
+IndentPPDirectives: BeforeHash
 IndentWidth: 4
 TabWidth: 4
 UseTab: Never
@@ -42,7 +43,7 @@ AlignConsecutiveMacros:
 AllowShortFunctionsOnASingleLine: None     
 AllowShortIfStatementsOnASingleLine: false  
 AllowShortBlocksOnASingleLine: false
-AllowShortCaseLabelsOnASingleLine: false
+AllowShortCaseLabelsOnASingleLine: true 
 AllowShortLoopsOnASingleLine: false
 AllowAllParametersOfDeclarationOnNextLine: false
 
@@ -65,5 +66,4 @@ MaxEmptyLinesToKeep: 1
 KeepEmptyLinesAtTheStartOfBlocks: false
 SortIncludes: false  
 ---
-
 

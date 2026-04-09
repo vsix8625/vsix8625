@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ERRORS=()
+
+if pgrep -x pacman > /dev/null; then
+    ERRORS+=("pacman is currently running!")
+fi
+
+if [ -f /var/lib/pacman/db.lck ]; then
+    ERRORS+=("pacman lock file exists — update may be in progress or crashed")
+fi
+
+for FILE in /boot/vmlinuz-linux /boot/initramfs-linux.img; do
+    if [ ! -f "$FILE" ]; then
+        ERRORS+=("Missing critical boot file: $FILE")
+    fi
+done
+
+for PROC in gcc g++ clang barr; do
+    if pgrep -x "$PROC" > /dev/null; then
+        ERRORS+=("$PROC is currently running!")
+    fi
+done
+
+if [ ${#ERRORS[@]} -gt 0 ]; then
+    echo "SHUTDOWN ABORTED — sanity check failed:"
+    for ERR in "${ERRORS[@]}"; do
+        echo "  ❌ $ERR"
+    done
+    exit 1
+fi
+
+echo "✅ All checks passed. Shutting down in..."
+
+for ((i=3; i>=1; i--)); do
+	echo $i
+	sleep 1
+done
+
+systemctl poweroff

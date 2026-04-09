@@ -14,3 +14,6 @@ ln -sf "$DOTFILES/foot" ~/.config/
 ln -sf "$DOTFILES/sway" ~/.config/
 ln -sf "$DOTFILES/waybar" ~/.config/
 ln -sf "$DOTFILES/swaylock" ~/.config/
+
+mkdir -p ~/.local/bin
+ln -sf "$DOTFILES/scripts/godown" ~/.local/bin/godown
