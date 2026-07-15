@@ -73,6 +73,20 @@ end
 
 ----------------------------------------------------------------------------------------------------
 
+local function get_search_count()
+	if vim.v.hlsearch == 0 then return "" end
+
+	local ok, search = pcall(vim.fn.searchcount, { recompute = 1, maxcount = -1 })
+
+	if not ok or next(search) == nil or search.total == 0 then
+		return ""
+	end
+
+	return string.format("Search: [%d/%d]", search.current, search.total)
+end
+
+----------------------------------------------------------------------------------------------------
+
 local hour_n = 1
 function MyWinbar()
 	local winbar
@@ -142,7 +156,8 @@ function MyStatusline()
 	end
 
 	local buffer_info = "%=%#modeNormal# " ..
-		" %#linenr#TAB=" .. get_shiftwidth() .. " | %c | %l" .. "/%L|%#modeNormal# %p%%| "
+		" %#linenr#" ..
+		get_search_count() .. " | TAB=" .. get_shiftwidth() .. " | %c | %l" .. "/%L|%#modeNormal# %p%%| "
 
 	---@diagnostic disable-next-line: unused-local
 	local save_status_colors = {
