@@ -59,7 +59,7 @@ hi("cDefine", { link = "PreProc" })
 --hi("LineNrBelow", {})
 
 
-hi("PreProc", { fg = "#5995f4" })
+hi("PreProc", { fg = "#5996f4" })
 hi("cInclude", { link = "Keyword" })
 hi("Typedef", { link = "Special" })
 hi("Statement", { link = "Keyword" })
