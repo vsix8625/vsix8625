@@ -5,6 +5,7 @@
 auto-save/
 auto-save-list/
 backups/
+transient/
 tree-sitter/
 eln-cache/
 elpa/

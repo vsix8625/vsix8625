@@ -1,9 +1,15 @@
+(setq package-enable-at-startup nil)
+(setq custom-file-inhibit-initialize t)
+
+(setq load-prefer-newer t)
+
+(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+(load custom-file 'noerror)
+
 (require 'package)
 (setq initial-buffer-choice "/devenv/projects") 
 (setq inhibit-startup-echo-area-message "vsix")
 
-(setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file 'noerror)
 (put 'set-goal-column 'disabled nil)
 (put 'upcase-region 'disabled nil)
 
@@ -113,6 +119,8 @@
   :ensure t
   :hook (dired-mode . diredfl-mode))
 
+(use-package magit
+  :ensure t)
 
 (with-eval-after-load 'flymake
   (define-key flymake-mode-map (kbd "M-n") 'flymake-goto-next-error)
@@ -141,6 +149,12 @@
 
 (setq c-ts-mode-indent-offset 4)
 (setq treesit-font-lock-level 4) 
+
+;;(add-hook 'after-load-functions
+;;          (lambda (path)
+;;            (let ((package-name (file-name-base path)))
+;;              (message "Package loaded successfully: %s" package-name))))
+;;
 
 (message "Emacs: (Ready in %s)" (emacs-init-time))
 

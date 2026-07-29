@@ -62,7 +62,7 @@ exec foot --server
     # Start browser
     bindsym $mod+x exec $browser
 
-    bindsym $mod+p exec emacs -fs -l ~/.config/emacs/init.el
+    bindsym $mod+p exec emacs -fs
 
     # Kill focused window
     bindsym $mod+Shift+q kill
