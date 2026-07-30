@@ -3,6 +3,9 @@
 
 (setq load-prefer-newer t)
 
+;; -alh Dired
+(setq dired-listing-switches "-alh")
+
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
 
@@ -29,11 +32,23 @@
 
 (setq inhibit-startup-screen t)
 
+;; short answers (y / n)
+(setq use-short-answers t)
+
+;; if want Dired to kill buffer when navigate dirs
+(setq dired-kill-when-opening-new-dired-buffers t)
+
 (setq isearch-lazy-count t)
 (setq lazy-highlight-initial-delay 0)
 (setq isearch-allow-motion t)
 (save-place-mode 1)
 (global-set-key (kbd "RET") 'newline-and-indent)
+
+;; ibuffer
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+
+;; other-window
+(global-set-key (kbd "C-<tab>") 'other-window)
 
 (global-auto-revert-mode 1)
 (setq global-auto-revert-non-file-buffers t)
@@ -53,6 +68,12 @@
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 
 ;; keys
+
+(keymap-global-set "C-<left>"  #'previous-buffer)
+(keymap-global-set "C-<right>" #'next-buffer)
+
+;; delete other windows
+(global-set-key (kbd "C-c o") (kbd "C-x 1"))
 
 (setq compile-command "sk strike --profile")
 (global-set-key (kbd "C-c c") 'compile)

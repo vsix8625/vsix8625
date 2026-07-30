@@ -6,6 +6,7 @@ auto-save/
 auto-save-list/
 backups/
 transient/
+eshell/
 tree-sitter/
 eln-cache/
 elpa/
