@@ -42,6 +42,10 @@
 (setq lazy-highlight-initial-delay 0)
 (setq isearch-allow-motion t)
 (save-place-mode 1)
+
+;; shadow completion mode
+(global-completion-preview-mode 1)
+
 (global-set-key (kbd "RET") 'newline-and-indent)
 
 ;; ibuffer
@@ -69,14 +73,22 @@
 
 ;; keys
 
-(keymap-global-set "C-<left>"  #'previous-buffer)
-(keymap-global-set "C-<right>" #'next-buffer)
+(keymap-global-set "C-{"  #'previous-buffer)
+(keymap-global-set "C-}" #'next-buffer)
 
 ;; delete other windows
 (global-set-key (kbd "C-c o") (kbd "C-x 1"))
 
-(setq compile-command "sk strike --profile")
-(global-set-key (kbd "C-c c") 'compile)
+(setq compile-command "sk strike")
+
+(global-set-key (kbd "C-c c")
+                (lambda () (interactive) (compile "sk strike --profile")))
+
+(global-set-key (kbd "C-c t")
+                (lambda () (interactive) (compile "sk clean")))
+
+(global-set-key (kbd "C-c T")
+                (lambda () (interactive) (compile "sk clean --full")))
 
 (global-set-key (kbd "C-c r")
                 (lambda () (interactive) (async-shell-command "sk surge")))
@@ -86,7 +98,7 @@
                   (interactive)
                   (let* ((target (read-string "Target (blank = latest): "))
                          (args (read-string "Args (blank = none): ")))
-                    (async-shell-command
+                    (compile
                      (string-trim
                       (concat "sk surge "
                               target
@@ -115,8 +127,8 @@
   :custom
   (corfu-auto t)                  
 
-  (corfu-auto-delay 0.1)         
-  (corfu-auto-prefix 2)          
+  (corfu-auto-delay 3)         
+  (corfu-auto-prefix 3)          
   (corfu-quit-no-match 'separator)
   :bind (:map corfu-map
               ("TAB" . corfu-next)
@@ -147,16 +159,31 @@
   (define-key flymake-mode-map (kbd "M-n") 'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "M-p") 'flymake-goto-prev-error))
 
-(require 'eglot)
+;;(require 'eglot)
+
 ;; Eglot Performance Adjustments
 (setq eglot-sync-connect 0)
 (setq read-process-output-max (* 1024 1024))
+(setq eglot-events-buffer-size 0)
 
-(setq-default eglot-ignored-server-capabilities '(:inlayHintProvider))
+;; kill auto idle-trigger
+(setq eldoc-idle-delay 2.0)
+
+(setq-default eglot-ignored-server-capabilities '(:inlayHintProvider
+						  :documentHighlightProvider
+						  :signatureHelpProvider
+						  :publishDiagnosticsProvider))
+
+(with-eval-after-load 'jsonrpc
+  (defun jsonrpc--log-event (&rest _) nil))
 
 (with-eval-after-load 'eglot
   (add-to-list 'eglot-server-programs
-               '((c-ts-mode c-mode) . ("clangd" "--header-insertion=never"))))
+               '((c-ts-mode c-mode) . ("clangd"
+				       "--header-insertion=never"
+  				       "--background-index")))
+  (define-key eglot-mode-map (kbd "C-c %") 'eglot-rename)
+)
 
 (with-eval-after-load 'c-ts-mode
   (define-key c-ts-mode-map (kbd "C-c k") 'eldoc-doc-buffer)
@@ -171,12 +198,56 @@
 (setq c-ts-mode-indent-offset 4)
 (setq treesit-font-lock-level 4) 
 
-;;(add-hook 'after-load-functions
-;;          (lambda (path)
-;;            (let ((package-name (file-name-base path)))
-;;              (message "Package loaded successfully: %s" package-name))))
-;;
+;; find-other-file-project
+(defun vsix/jump-to-other-file ()
+  "Switch between .c and .h files"
+  (interactive)
+  (let* ((current-file (buffer-file-name))
+         (current-dir (and current-file (file-name-directory current-file)))
+         (base-name   (and current-file (file-name-base current-file)))
+         (root-dir (and current-dir
+                        (locate-dominating-file current-dir 
+                                                (lambda (dir)
+                                                  (or (file-exists-p (expand-file-name ".git" dir))
+                                                      (file-exists-p (expand-file-name ".storm" dir))
+                                                      (file-exists-p (expand-file-name ".project" dir))
+                                                      (file-exists-p (expand-file-name "Makefile" dir))
+                                                      (file-exists-p (expand-file-name ".root" dir))))))))
+    (if (not current-file)
+        (message "File not found")
+      (if (not root-dir)
+          (message "No project anchor found")
+        (let* ((pattern (concat "^" (regexp-quote base-name) "\\.[a-zA-Z0-9]+$"))
+               (all-matches (directory-files-recursively root-dir pattern))
+               (other-matches (cl-remove current-file all-matches :test #'string=)))
+          (if other-matches
+              (find-file (car other-matches))
+            (message "No matching pair found for '%s.*' in project root." base-name)))))))
 
+;; key map	
+(global-set-key (kbd "M-o") 'vsix/jump-to-other-file)
+;; end of vsix/jump-to-other-file
+
+(defun vsix/open-line-above()
+  "Insert line above"
+  (interactive)
+  (beginning-of-line)
+  (open-line 1)
+  (indent-according-to-mode))
+
+(global-set-key (kbd "C-o") 'vsix/open-line-above)
+
+(defun vsix/kill-to-end-of-buffer ()
+  "Kill from current cursor position to the end of the buffer."
+  (interactive)
+  (kill-region (point) (point-max)))
+
+(global-set-key (kbd "C-c C-d") 'vsix/kill-to-end-of-buffer)
+
+;;-----------------------------------------------------------------------
+
+
+;; end of init.el			     
 (message "Emacs: (Ready in %s)" (emacs-init-time))
 
 

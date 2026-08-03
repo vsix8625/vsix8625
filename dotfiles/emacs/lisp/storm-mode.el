@@ -21,9 +21,7 @@
   "Syntax table for `storm-mode'.")
 
 ;;; Faces --------------------------------------------------------------
-;; Booleans don't have a natural existing font-lock face to reuse, so
 ;; a small dedicated face is defined here. Add a theme entry for it,
-;; e.g. in zeus-theme.el:
 ;;   `(storm-boolean-face ((t (:foreground ,boolean-fg :weight bold))))
 
 (defface storm-boolean-face
@@ -43,10 +41,6 @@
 (defconst storm-booleans '("true" "false"))
 
 ;;; Font-lock ------------------------------------------------------------
-;; Comments and strings are handled automatically via the syntax table
-;; above (font-lock applies syntactic fontification alongside these
-;; keyword rules), so they don't need explicit regexps here.
-
 (defconst storm-font-lock-keywords
   (list
    ;; key:: or key: (identifier immediately before a colon/double-colon)
@@ -67,28 +61,21 @@
    ;; booleans
    (cons (regexp-opt storm-booleans 'words) ''storm-boolean-face)
 
-   ;; keywords (checked after key:: so `target::` etc still highlights
-   ;; the key/operator pair correctly; order in this list doesn't
-   ;; actually matter for correctness, font-lock applies all matches)
    (cons (regexp-opt storm-keywords 'words) ''font-lock-keyword-face))
   "Font-lock keyword table for `storm-mode'.")
 
 ;;; Format-on-save indenter ----------------------------------------------
-;; Direct port of the Lua BufWritePre logic: walks the buffer line by
-;; line, tracking brace depth and a one-shot "property indent" for
-;; lines following a `key:`/`key::`/`if (...)` line.
-
 (defun storm--format-buffer ()
   "Re-indent the current Stormfile buffer per the sk DSL's indent rules."
   (let* ((indent-unit "    ")
+         (orig-line (line-number-at-pos))
+         (orig-col (current-column))
          (text (buffer-string))
          (lines (split-string text "\n"))
          (depth 0)
          (prop-indent 0)
          (result '()))
-    ;; Drop the phantom trailing empty element split-string produces
-    ;; when the buffer ends in a newline (matches nvim_buf_get_lines
-    ;; semantics, which doesn't include that phantom line).
+
     (when (and (> (length lines) 1) (string-empty-p (car (last lines))))
       (setq lines (butlast lines)))
     (dolist (line lines)
@@ -115,10 +102,14 @@
              ((string-match-p "::?[[:space:]]*\\'" stripped)
               (setq prop-indent 1)))))))
     (setq result (nreverse result))
+    
     (let ((inhibit-read-only t))
       (erase-buffer)
       (insert (string-join result "\n"))
-      (insert "\n"))))
+      (insert "\n")
+      (goto-char (point-min))
+      (forward-line (1- orig-line))
+      (move-to-column orig-col))))
 
 ;;; Major mode -------------------------------------------------------------
 
