@@ -3,9 +3,6 @@
 
 (setq load-prefer-newer t)
 
-;; -alh Dired
-(setq dired-listing-switches "-alh")
-
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror)
 
@@ -37,6 +34,7 @@
 
 ;; if want Dired to kill buffer when navigate dirs
 (setq dired-kill-when-opening-new-dired-buffers t)
+(setq dired-listing-switches "-alh")
 
 (setq isearch-lazy-count t)
 (setq lazy-highlight-initial-delay 0)
@@ -79,30 +77,61 @@
 ;; delete other windows
 (global-set-key (kbd "C-c o") (kbd "C-x 1"))
 
+(ido-mode 1)
+(ido-everywhere 1)
+
+;; auto save pre-compile
+(setq compilation-ask-about-save nil)
+;; auto-scroll in compile
+(setq compilation-scroll-output 'first-error)
 (setq compile-command "sk strike")
 
-(global-set-key (kbd "C-c c")
-                (lambda () (interactive) (compile "sk strike --profile")))
+;;; Storm-Knell (sk) Commands
+(defun sk/compile-profile ()
+  "Compile using sk strike with profiling."
+  (interactive)
+  (compile "sk strike --profile"))
 
-(global-set-key (kbd "C-c t")
-                (lambda () (interactive) (compile "sk clean")))
+(defun sk/compile-autorun ()
+  "Compile using sk autorun."
+  (interactive)
+  (compile "sk autorun"))
 
-(global-set-key (kbd "C-c T")
-                (lambda () (interactive) (compile "sk clean --full")))
+(defun sk/clean ()
+  "Run sk clean."
+  (interactive)
+  (compile "sk clean"))
 
-(global-set-key (kbd "C-c r")
-                (lambda () (interactive) (async-shell-command "sk surge")))
+(defun sk/clean-full ()
+  "Run sk clean with --full flag."
+  (interactive)
+  (compile "sk clean --full"))
 
-(global-set-key (kbd "C-c R")
-                (lambda ()
-                  (interactive)
-                  (let* ((target (read-string "Target (blank = latest): "))
-                         (args (read-string "Args (blank = none): ")))
-                    (compile
-                     (string-trim
-                      (concat "sk surge "
-                              target
-                              (unless (string-empty-p args) (concat " ::: " args))))))))
+(defun sk/surge ()
+  "Run sk surge asynchronously."
+  (interactive)
+  (async-shell-command "sk surge"))
+
+(defun sk/surge-interactive ()
+  "Run sk surge with interactively prompted target and arguments."
+  (interactive)
+  (let* ((target (read-string "Target (blank = latest): "))
+         (args (read-string "Args (blank = none): ")))
+    (compile
+     (string-trim
+      (concat "sk surge "
+              target
+              (unless (string-empty-p args) (concat " ::: " args)))))))
+
+;; keybinds
+(global-set-key (kbd "C-c c") #'sk/compile-profile)
+(global-set-key (kbd "C-c C") #'sk/compile-autorun)
+(global-set-key (kbd "C-c t") #'sk/clean)
+(global-set-key (kbd "C-c T") #'sk/clean-full)
+(global-set-key (kbd "C-c r") #'sk/surge)
+(global-set-key (kbd "C-c R") #'sk/surge-interactive)
+
+;;--------------------------------------------------------------------------------------------
 
 (global-set-key (kbd "<f1>") (lambda () (interactive) (dired "~/.config/emacs/")))
 
@@ -154,6 +183,10 @@
 
 (use-package magit
   :ensure t)
+
+(use-package smex
+  :ensure t
+  :bind ("M-x" . smex))
 
 (with-eval-after-load 'flymake
   (define-key flymake-mode-map (kbd "M-n") 'flymake-goto-next-error)

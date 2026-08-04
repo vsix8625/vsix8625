@@ -16,3 +16,5 @@ places
 projects
 ielm-history.eld
 custom.el
+ido.*
+smex*
