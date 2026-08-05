@@ -4,7 +4,7 @@
 (setq load-prefer-newer t)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
-(load custom-file 'noerror)
+(load custom-file 'noerror+)
 
 (require 'package)
 (setq initial-buffer-choice "/devenv/projects") 
@@ -30,7 +30,7 @@
 (setq inhibit-startup-screen t)
 
 ;; short answers (y / n)
-(setq use-short-answers t)
+;;(setq use-short-answers t)
 
 ;; if want Dired to kill buffer when navigate dirs
 (setq dired-kill-when-opening-new-dired-buffers t)
