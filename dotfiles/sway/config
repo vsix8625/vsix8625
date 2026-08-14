@@ -49,6 +49,8 @@ exec swayidle -w \
 
 exec { dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP SWAYSOCK systemctl --user restart xdg-desktop-portal systemctl --user restart xdg-desktop-portal-wlr }
 
+exec emacs --daemon
+
 #exec $term 
 exec foot --server 
 
@@ -63,7 +65,8 @@ exec foot --server
     # Start browser
     bindsym $mod+x exec $browser
 
-    bindsym $mod+p exec emacs -fs
+    bindsym $mod+p exec emacsclient -a "" -c -n -e "(toggle-frame-fullscreen)"
+    bindsym $mod+o exec emacs -fs
 
     # Kill focused window
     bindsym $mod+Shift+q kill
@@ -229,6 +232,9 @@ seat seat0 xcursor_theme Adwaita 30
 
 default_border none
 #for_window [class=".*"] border none
+
+for_window [window_role="dialog|utility|toolbar|splash"] floating enable, focus
+focus_on_window_activation focus
 
 #exec waybar
 

@@ -2,27 +2,36 @@
 (setq custom-file-inhibit-initialize t)
 
 (setq load-prefer-newer t)
+(setq ido-auto-merge-work-directories-length -1)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror+)
 
 (require 'package)
-(setq initial-buffer-choice "/devenv/projects") 
+(setq initial-buffer-choice "/devenv") 
 (setq inhibit-startup-echo-area-message "vsix")
 
 (put 'set-goal-column 'disabled nil)
 (put 'upcase-region 'disabled nil)
+
+(global-set-key (kbd "C-x C-c") 'delete-frame)
+(global-set-key (kbd "C-x C-M-c") 'save-buffers-kill-emacs)
+
+(repeat-mode 1)
+(setq compilation-skip-threshold 2)
+(setq compilation-search-path '("." "src" ".."))
 
 ;; storm-mode for sk
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 (require 'storm-mode)
 
 (require 'ansi-color)
-(defun vsix/ansi-color-compilation-filter ()
+
+(defun user/ansi-color-compilation-filter ()
   (let ((inhibit-read-only t))
     (ansi-color-apply-on-region compilation-filter-start (point))))
 
-(add-hook 'compilation-filter-hook 'vsix/ansi-color-compilation-filter)
+(add-hook 'compilation-filter-hook 'user/ansi-color-compilation-filter)
 
 (setq display-line-numbers-type 'relative)
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
@@ -92,6 +101,11 @@
   (interactive)
   (compile "sk strike --profile"))
 
+(defun sk/dry-compile-verbose ()
+  "DRY and verbose run."
+  (interactive)
+  (compile "sk strike --dry --verbose"))
+
 (defun sk/compile-autorun ()
   "Compile using sk autorun."
   (interactive)
@@ -110,7 +124,7 @@
 (defun sk/surge ()
   "Run sk surge asynchronously."
   (interactive)
-  (async-shell-command "sk surge"))
+  (compile "sk surge"))
 
 (defun sk/surge-interactive ()
   "Run sk surge with interactively prompted target and arguments."
@@ -125,6 +139,7 @@
 
 ;; keybinds
 (global-set-key (kbd "C-c c") #'sk/compile-profile)
+(global-set-key (kbd "C-c v") #'sk/dry-compile-verbose)
 (global-set-key (kbd "C-c C") #'sk/compile-autorun)
 (global-set-key (kbd "C-c t") #'sk/clean)
 (global-set-key (kbd "C-c T") #'sk/clean-full)
@@ -157,7 +172,7 @@
   (corfu-auto t)                  
 
   (corfu-auto-delay 3)         
-  (corfu-auto-prefix 3)          
+  (corfu-auto-prefix 2)          
   (corfu-quit-no-match 'separator)
   :bind (:map corfu-map
               ("TAB" . corfu-next)
@@ -192,6 +207,10 @@
   (define-key flymake-mode-map (kbd "M-n") 'flymake-goto-next-error)
   (define-key flymake-mode-map (kbd "M-p") 'flymake-goto-prev-error))
 
+(with-eval-after-load 'dired
+  (define-key dired-mode-map (kbd "e") 'dired-up-directory))
+
+
 ;;(require 'eglot)
 
 ;; Eglot Performance Adjustments
@@ -222,17 +241,38 @@
   (define-key c-ts-mode-map (kbd "C-c k") 'eldoc-doc-buffer)
   (define-key c-ts-mode-map (kbd "C-c a") 'eglot-code-actions))
 
-(add-hook 'c-ts-mode-hook 'eglot-ensure)
+;; load eglot on demand
+(defun user/eglot-ensure ()
+  (interactive)
+  (eglot-ensure))
+
+(with-eval-after-load 'c-ts-mode
+  (define-key c-ts-mode-map (kbd "C-c l") #'user/eglot-ensure))
+
+;; auto format on save running clang-format process 
+(defun user/clang-format-buffer ()
+  (interactive)
+  (let ((pos (point))
+        (file (or buffer-file-name "stdin.c")))
+    (call-process-region
+     (point-min)
+     (point-max)
+     "clang-format"
+     t
+     t
+     nil
+     "--assume-filename" file)
+    (goto-char (min pos (point-max)))))
 
 (add-hook 'c-ts-mode-hook
           (lambda ()
-            (add-hook 'before-save-hook 'eglot-format-buffer nil t)))
+            (add-hook 'before-save-hook #'user/clang-format-buffer nil t)))
 
 (setq c-ts-mode-indent-offset 4)
 (setq treesit-font-lock-level 4) 
 
 ;; find-other-file-project
-(defun vsix/jump-to-other-file ()
+(defun user/jump-to-other-file ()
   "Switch between .c and .h files"
   (interactive)
   (let* ((current-file (buffer-file-name))
@@ -258,27 +298,35 @@
             (message "No matching pair found for '%s.*' in project root." base-name)))))))
 
 ;; key map	
-(global-set-key (kbd "M-o") 'vsix/jump-to-other-file)
-;; end of vsix/jump-to-other-file
+(global-set-key (kbd "M-o") 'user/jump-to-other-file)
+;; end of user/jump-to-other-file
 
-(defun vsix/open-line-above()
+(defun user/open-line-above()
   "Insert line above"
   (interactive)
   (beginning-of-line)
   (open-line 1)
   (indent-according-to-mode))
 
-(global-set-key (kbd "C-o") 'vsix/open-line-above)
+(global-set-key (kbd "C-o") 'user/open-line-above)
 
-(defun vsix/kill-to-end-of-buffer ()
+(defun user/kill-to-end-of-buffer ()
   "Kill from current cursor position to the end of the buffer."
   (interactive)
   (kill-region (point) (point-max)))
 
-(global-set-key (kbd "C-c C-d") 'vsix/kill-to-end-of-buffer)
+(global-set-key (kbd "C-c C-d") 'user/kill-to-end-of-buffer)
 
 ;;-----------------------------------------------------------------------
 
+(defun user/my-copy-line(arg)
+  "Copy ARG lines without killing them"
+  (interactive "p")
+  (kill-ring-save (line-beginning-position)
+                  (line-beginning-position (+ 1 arg)))
+  (message "%d line%s copied" arg (if (= 1 arg) "" "s")))
+
+(global-set-key (kbd "M-k") 'user/my-copy-line)
 
 ;; end of init.el			     
 (message "Emacs: (Ready in %s)" (emacs-init-time))
