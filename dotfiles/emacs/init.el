@@ -1,8 +1,12 @@
+;; -*- lexical-binding: t; -*-
 (setq package-enable-at-startup nil)
 (setq custom-file-inhibit-initialize t)
 
 (setq load-prefer-newer t)
 (setq ido-auto-merge-work-directories-length -1)
+
+;; prevent TRAMP altering theme
+;; (setq tramp-default-proxies-alist nil)
 
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 (load custom-file 'noerror+)
@@ -84,7 +88,7 @@
 (keymap-global-set "C-}" #'next-buffer)
 
 ;; delete other windows
-(global-set-key (kbd "C-c o") (kbd "C-x 1"))
+(global-set-key (kbd "C-c C-o") (kbd "C-x 1"))
 
 (ido-mode 1)
 (ido-everywhere 1)
@@ -328,8 +332,18 @@
 
 (global-set-key (kbd "M-k") 'user/my-copy-line)
 
+(defun grep-sys (symbol)
+  "Search /usr/include for SYMBOL using ripgrep."
+  (interactive "sSystem Symbol: ")
+  (let ((term (string-trim symbol)))
+    (if (string-empty-p term)
+        (user-error "Search term cannot be empty!")
+      (grep (format "rg --vimgrep -w %s /usr/include"
+                    (shell-quote-argument term))))))
+
 ;; end of init.el			     
 (message "Emacs: (Ready in %s)" (emacs-init-time))
 
 
 
+(put 'downcase-region 'disabled nil)

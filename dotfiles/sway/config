@@ -23,7 +23,7 @@ set $browser firefox
 ### Output configuration
 #
 # Default wallpaper (more resolutions are available in /usr/share/backgrounds/sway/)
-output * bg $HOME/Downloads/sportglide.jpg fill
+output * bg $HOME/Downloads/rk-special.jpg fill
 
 #
 # Example configuration:
@@ -38,7 +38,7 @@ output * bg $HOME/Downloads/sportglide.jpg fill
 #
 exec swaylock -f -c 000000
 exec swayidle -w \
-          timeout 600 'swaylock -f -c 000000' \
+          timeout 900 'swaylock -f -c 000000' \
           timeout 1200 'swaymsg "output * power off"' resume 'swaymsg "output * power on"' \
           before-sleep 'swaylock -f -c 000000'
 
@@ -136,7 +136,7 @@ exec foot --server
     bindsym $mod+Shift+9 move container to workspace number 9
     bindsym $mod+Shift+0 move container to workspace number 10
     # Note: workspaces can have any name you want, not just numbers.
-    # We just use 1-10 as the default.
+    # We just use 1-10 as the defualt.
 #
 # Layout stuff:
 #

@@ -1,3 +1,4 @@
+;; -*- lexical-binding: t; -*-
 (setq gc-cons-threshold (* 400 1024 1024))
 
 (push '(menu-bar-lines . 0) default-frame-alist)
